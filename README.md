@@ -10,7 +10,7 @@ This repository contains the code used to analyse the results of a systematic re
 - [Functions](./Functions): Extra functions required for the analyses presented in the paper.
 - [Model Files](./Model Files): STAN model files for Negative Binomial Gaussian Process fitting and Penalised Multinomial Logistic Regression. 
 - [Outputs](./Outputs): Containing .rds outputs from model fitting and time-series characterisation.
-- [Paper Draft](./Paper Draft): Containing draft Manuscript and associated Supplementary Information.
+- [Paper Draft](./Paper_Draft): Containing draft Manuscript and associated Supplementary Information.
 
 ## Software Requirements
 Other than the required R packages, running the code contained in this repository requires the  probabilistic programming language STAN for model fitting. STAN is a program for analysis of Bayesian models using Markov Chain Monte Carlo (MCMC) simulation and can be accessed via the `rstan` package, available here:
