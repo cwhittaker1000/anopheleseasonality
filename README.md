@@ -8,7 +8,7 @@ This repository contains the code used to analyse the results of a systematic re
 - [Conference Presentations](./Conference Presentations): Containing presentations in preparation for various conferences. 
 - [Figures](./Figures): Containing .PDF and .ai versions of paper figures.
 - [Functions](./Functions): Extra functions required for the analyses presented in the paper.
-- [Model Files](./Model Files): STAN model files for Negative Binomial Gaussian Process fitting and Penalised Multinomial Logistic Regression. 
+- [Model Files](./Model_Files): STAN model files for Negative Binomial Gaussian Process fitting and Penalised Multinomial Logistic Regression. 
 - [Outputs](./Outputs): Containing .rds outputs from model fitting and time-series characterisation.
 - [Paper Draft](./Paper_Draft): Containing draft Manuscript and associated Supplementary Information.
 
