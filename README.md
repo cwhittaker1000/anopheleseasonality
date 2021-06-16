@@ -1,4 +1,4 @@
-# Indian Anopheline Seasonality Systematic Review
+# Indian Anopheline Seasonality Systematic Review 📈🦟
 
 ## Overview
 This repository contains the code used to analyse the results of a systematic review exploring the seasonality of various Anopheline species endemic to the Indian subcontinent. Briefly, a systematic review was carried out in order to identify entomological surveys in which mosquito collections had been conducted monthly (or finer resolution) over a period of at least a year. The collated entomological data was then analysed using a Bayesian Gaussian Process based approach in order to explore the patterns of seasonality displayed by different mosquito species.
