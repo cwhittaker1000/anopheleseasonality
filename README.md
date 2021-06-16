@@ -5,7 +5,6 @@ This repository contains the code used to analyse the results of a systematic re
 
 ## Repo Contents
 - [Analyses](./Analyses): Code running the analyses and generates the figures featured in the paper.
-- [Conference Presentations](./Conference Presentations): Containing presentations in preparation for various conferences. 
 - [Figures](./Figures): Containing .PDF and .ai versions of paper figures.
 - [Functions](./Functions): Extra functions required for the analyses presented in the paper.
 - [Model Files](./Model_Files): STAN model files for Negative Binomial Gaussian Process fitting and Penalised Multinomial Logistic Regression. 
