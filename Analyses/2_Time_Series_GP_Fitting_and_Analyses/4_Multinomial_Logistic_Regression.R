@@ -8,12 +8,15 @@ library(forecast); library(TSA); library(mgcv); library(GPfit); library(rstan); 
 library(ggplot2); library(reshape2); library(deSolve); library(parallel); library(matlib); library(matlab); 
 library(pracma); library(rstan); library(ggplot2); library(invgamma); library(tictoc); library(dplyr); 
 library(VGAM); library(rgl); library(car); library(caret); library(mltools); library(data.table); library(glmnet);
-library(UpSetR); library(dendextend)
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/")
+library(UpSetR); library(dendextend); library(here)
+
+# Sourcing functions
 source("Functions/Periodic_Kernel_GP_Fitting_Functions.R")
 source("Functions/Von_Mises_Fitting_Functions.R")
 source("Functions/Time_Series_Operation_Functions.R")
 source("Functions/Logistic_Regression_Functions.R")
+
+# Loading in and processing mosquito data
 mosquito_data <- read.csv("Datasets/Systematic_Review/Processed_Catch_Data.csv", stringsAsFactors = FALSE)
 keep <- mosquito_data$Keep
 species <- mosquito_data$Species
@@ -29,20 +32,11 @@ if (prior == "informative") {
 }
 covariates <- readRDS("Datasets/Extracted_Covariates_for_Modelling/Extracted_Covariates.rds")
 
-
 #######################################################################################################
 ##                                                                                                   ##
 ##        Loading In Environmental Covariates and Cluster Assignments for Each Time Series           ## 
 ##                                                                                                   ##
 #######################################################################################################
-# Reduced Subset (4 + 7 + 4 + 6 + 2 + 11 landcover variables) - 34 variables
-# temp_red <- c("Temperature_Seasonality", "Annual_Mean_Temperature", "Day_LST_SD", "Mean_Temp_Driest_Quartest")
-# rain_red <- c("Annual_Rain", "Rain_Seasonality", "WC_A3", "WC_P0", "WC_P3", "CHIRPS_Min", "Rain_Coldest_Quarter")
-# arid_red <- c("PET_Yearly_Average", "Specific_Humidity_SD", "Tasseled_Cap_Wetness_SD", "Tasseled_Cap_Brightness_SD")
-# hydro_red <- c("WWF_Distance_to_Water", "Water_Areas_Recurrence", "Water_Areas_Seasonality", "Irrigated_Areas", "Flow_Accumulation", "Elevation")
-# landcover_red <- c("City_Accessibility", "EVI_Mean", "Dominant_Landcover")
-# reduced_subset <- c(temp_red, rain_red, arid_red, hydro_red, landcover_red)
-
 # Even More Reduced Subset (3 + 4 + 3 + 3 + 1 + 11 landcover variables) - 25 variables
 temp_red <- c("Temperature_Seasonality", "Annual_Mean_Temperature", "Mean_Temp_Driest_Quarter")
 rain_red <- c("Annual_Rain", "Rain_Seasonality", "CHIRPS_Min", "Rain_Coldest_Quarter")
@@ -51,7 +45,7 @@ hydro_red <- c("Water_Areas_Occurrence", "Water_Areas_Recurrence", "Flow_Accumul
 landcover_red <- c("City_Accessibility", "Dominant_Landcover")
 reduced_subset <- c(temp_red, rain_red, arid_red, hydro_red, landcover_red)
 
-colnames(covariates)[9] <- "Mean_Temp_Driest_Quarter"
+colnames(covariates)[10] <- "Mean_Temp_Driest_Quarter"
 covariates <- covariates[order(covariates[, "location_IDs"]), ]
 covariates <- covariates[, -1]
 covariates <- as.data.frame(covariates)
@@ -124,8 +118,9 @@ STAN_Data <- list(Number_Clusters = Number_Clusters, Number_Envt_Variables = Num
                   Cluster_Identity_Fluv = Cluster_Identity_Fluv, Cluster_Identity_Min = Cluster_Identity_Min, Cluster_Identity_Ste = Cluster_Identity_Ste, Cluster_Identity_Sub = Cluster_Identity_Sub)
 
 STAN_GLM <- stan_model("Model_Files/Multinomial_Spec_Spec_Intercepts.stan")
-options(mc.cores = 4)
-STAN_fit <- sampling(STAN_GLM, data = STAN_Data, iter = 5000, chains = 4, refresh = 100, control = list(max_treedepth = 15, adapt_delta = 0.95))
+options(mc.cores = 3)
+STAN_fit <- sampling(STAN_GLM, data = STAN_Data, iter = 3000, chains = 3, refresh = 500, control = list(max_treedepth = 15, adapt_delta = 0.95))
+
 check_hmc_diagnostics(STAN_fit)
 fit <- rstan::extract(STAN_fit)
 
@@ -148,13 +143,6 @@ row.names(spec_coefs) <- c("Annularis", "Culicifacies", "Dirus", "Fluviatilis", 
 cluster_spec_melt <- melt(spec_coefs)
 cluster_spec_melt$Var1 <- factor(cluster_spec_melt$Var1, levels = rev(unique(cluster_spec_melt$Var1[order(cluster_spec_melt$Var1)])))
 ggplot(cluster_spec_melt, aes(x = Var2, y = Var1)) + 
-  geom_tile(aes(fill = value), colour = "white") +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red") + xlab ("") + ylab("")
-
-spec_melt_cor <- melt(cor(spec_coefs))
-spec_melt_cor$Var1 <- factor(spec_melt_cor$Var1, levels = rev(unique(spec_melt_cor$Var1[order(spec_melt_cor$Var1)])))
-base_size <- 9
-ggplot(spec_melt_cor, aes(x = Var2, y = Var1)) + 
   geom_tile(aes(fill = value), colour = "white") +
   scale_fill_gradient2(low = "blue", mid = "white", high = "red") + xlab ("") + ylab("")
 

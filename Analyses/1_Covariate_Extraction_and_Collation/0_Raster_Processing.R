@@ -32,7 +32,7 @@ bioclim_raster_3 <- getData('worldclim', var = 'bio', res = 0.5, lon = lon_vec[3
 bioclim_raster_4 <- getData('worldclim', var ='bio', res = 0.5, lon = lon_vec[4], lat = lat_vec[4], path = "Raw/")
 BioClimNames <- c("Annual_Mean_Temperature", "Mean_Diurnal_Range", "Isothermality", 
                   "Temperature_Seasonality", "Max_Temp_Warmest_Month", "Min_Temp_Coldest_Month", 
-                  "Temp_Annual_Range", "Mean_Temp_Wettest_Quarter", "Mean_Temp_Driest_Quartest", 
+                  "Temp_Annual_Range", "Mean_Temp_Wettest_Quarter", "Mean_Temp_Driest_Quarter", 
                   "Mean_Temp_Warmest_Quarter", "Mean_Temp_Coldest_Quarter", "Annual_Rain", 
                   "Rain_Wettest_Month", "Rain_Driest_Month", "Rain_Seasonality", 
                   "Rain_Wettest_Quarter", "Rain_Driest_Quarter", "Rain_Warmest_Quarter", "Rain_Coldest_Quarter")
