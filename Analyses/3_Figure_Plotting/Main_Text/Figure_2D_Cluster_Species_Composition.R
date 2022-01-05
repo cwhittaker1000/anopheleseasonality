@@ -8,7 +8,6 @@ library(forecast); library(TSA); library(mgcv); library(GPfit); library(rstan); 
 library(ggplot2); library(reshape2); library(deSolve); library(parallel); library(matlib); library(matlab); 
 library(pracma); library(rstan); library(ggplot2); library(invgamma); library(tictoc); library(dplyr); 
 library(VGAM); library(rgl); library(car); library(R.utils)
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/")
 source("Functions/Periodic_Kernel_GP_Fitting_Functions.R")
 source("Functions/Von_Mises_Fitting_Functions.R")
 source("Functions/Time_Series_Operation_Functions.R")
@@ -30,7 +29,7 @@ colours <- c("#29B200" , "#2EBEEA", "#A948EA", "#898989", "#E8A50B", "#E0521A", 
 species_names <- c("Annularis", "Culicifacies", "Dirus", "Fluviatilis", "Minimus", "Stephensi", "Subpictus") 
 total_species_counts <- as.vector(table(species))
 names(total_species_counts) <- species_names
-par(mfrow = c(2, 2), mar = c(4, 2, 4, 2))
+par(mfrow = c(1, 4), mar = c(4, 2, 4, 2))
 
 cluster_1 <- species[clusters$Cluster == 1]
 table_1 <- table(cluster_1)

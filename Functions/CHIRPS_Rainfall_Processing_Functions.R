@@ -81,7 +81,7 @@ rain_time_series_generator <- function(years, location_ID, location_coordinates,
 
 # Load In Specific Rainfall Dataset
 rainfall_data_loader <- function(single_record_dataframe) {
-  base_path <- "C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Datasets/CHIRPS_Rainfall_Data/Location_Specific_CHIRPS_Rainfall/"
+  base_path <- "C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/anopheleseasonality/Datasets/CHIRPS_Rainfall_Data/Location_Specific_CHIRPS_Rainfall/"
   Loc_ID <- single_record_dataframe$Location_ID[1]
   Ref_ID <- single_record_dataframe$Ref_ID[1]
   specific_path <- paste0("LocID_", Loc_ID, "_", "RefID_", Ref_ID, ".csv")

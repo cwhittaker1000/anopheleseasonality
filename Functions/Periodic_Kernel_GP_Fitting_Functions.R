@@ -109,7 +109,7 @@ Periodic_NegBinom_GP_Fitting <- function(input_time_series, number_interpolating
 
 mean_realisation_extract <- function(time_series_index, time_series_matrix, prior, print_output) {
   
-  base_wd <- "C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Outputs/Negative_Binomial_GP_Fitting/"
+  base_wd <- "C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/anopheleseasonality/Outputs/Negative_Binomial_GP_Fitting/"
   observed_time_series <- time_series_matrix[time_series_index, ]
   
   if (prior == "informative") {
