@@ -4,8 +4,8 @@
 ##                                                                                                   ##
 #######################################################################################################
 library(rgdal); library(sf); library(raster); library(sp); library(maps); library(zoo)
-source("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Functions/Spatial_Data_Processing_Functions.R")
-location_metadata <- read.csv("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Datasets/Systematic_Review/Geographical_Data.csv")
+source("Functions/Spatial_Data_Processing_Functions.R")
+location_metadata <- read.csv("Datasets/Systematic_Review/Geographical_Data.csv")
 location_data <- location_metadata[, c(3, 7, 8, 12, 13, 14:37)] 
 
 

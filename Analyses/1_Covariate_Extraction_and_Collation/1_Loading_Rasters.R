@@ -7,7 +7,6 @@ library(rasterVis); library(raster); library(sp); library(classInt); library(col
 library(maps); library(sp); library(rgeos); library(rgdal); library(maptools); library(dplyr);
 library(tidyr); library(tmap); library(maps); library(scales); library(mapproj); library(gdalUtils); 
 library(latticeExtra); library(geosphere); library(sf); library(viridis); library(gdistance); 
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Datasets/Satellite_Covariates/Processed/")
 
 #######################################################################################################
 ##                                                                                                   ##
@@ -20,25 +19,25 @@ setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analys
 ##     Available Here: http://worldclim.org/version2                                                 ##
 ##                                                                                                   ##
 #######################################################################################################
-Annual_Mean_Temperature <- raster("Annual_Mean_Temperature.tif")
-Mean_Diurnal_Range <- raster("Mean_Diurnal_Range.tif")
-Isothermality <- raster("Isothermality.tif")
-Temperature_Seasonality <- raster("Temperature_Seasonality.tif")
-Max_Temp_Warmest_Month <- raster("Max_Temp_Warmest_Month.tif")
-Min_Temp_Coldest_Month <- raster("Min_Temp_Coldest_Month.tif")
-Temp_Annual_Range <- raster("Temp_Annual_Range.tif")
-Mean_Temp_Wettest_Quarter <- raster("Mean_Temp_Wettest_Quarter.tif")
-Mean_Temp_Driest_Quartest <- raster("Mean_Temp_Driest_Quartest.tif")
-Mean_Temp_Warmest_Quarter <- raster("Mean_Temp_Warmest_Quarter.tif")
-Mean_Temp_Coldest_Quarter <- raster("Mean_Temp_Coldest_Quarter.tif")
-Annual_Rain <- raster("Annual_Rain.tif")
-Rain_Wettest_Month <- raster("Rain_Wettest_Month.tif")
-Rain_Driest_Month <- raster("Rain_Driest_Month.tif")
-Rain_Seasonality <- raster("Rain_Seasonality.tif")
-Rain_Wettest_Quarter <- raster("Rain_Wettest_Quarter.tif")
-Rain_Driest_Quarter <- raster("Rain_Driest_Quarter.tif")
-Rain_Warmest_Quarter <- raster("Rain_Warmest_Quarter.tif")
-Rain_Coldest_Quarter <- raster("Rain_Coldest_Quarter.tif")
+Annual_Mean_Temperature <- raster("Datasets/Satellite_Covariates/Processed/Annual_Mean_Temperature.tif")
+Mean_Diurnal_Range <- raster("Datasets/Satellite_Covariates/Processed/Mean_Diurnal_Range.tif")
+Isothermality <- raster("Datasets/Satellite_Covariates/Processed/Isothermality.tif")
+Temperature_Seasonality <- raster("Datasets/Satellite_Covariates/Processed/Temperature_Seasonality.tif")
+Max_Temp_Warmest_Month <- raster("Datasets/Satellite_Covariates/Processed/Max_Temp_Warmest_Month.tif")
+Min_Temp_Coldest_Month <- raster("Datasets/Satellite_Covariates/Processed/Min_Temp_Coldest_Month.tif")
+Temp_Annual_Range <- raster("Datasets/Satellite_Covariates/Processed/Temp_Annual_Range.tif")
+Mean_Temp_Wettest_Quarter <- raster("Datasets/Satellite_Covariates/Processed/Mean_Temp_Wettest_Quarter.tif")
+Mean_Temp_Driest_Quarter <- raster("Datasets/Satellite_Covariates/Processed/Mean_Temp_Driest_Quartest.tif")
+Mean_Temp_Warmest_Quarter <- raster("Datasets/Satellite_Covariates/Processed/Mean_Temp_Warmest_Quarter.tif")
+Mean_Temp_Coldest_Quarter <- raster("Datasets/Satellite_Covariates/Processed/Mean_Temp_Coldest_Quarter.tif")
+Annual_Rain <- raster("Datasets/Satellite_Covariates/Processed/Annual_Rain.tif")
+Rain_Wettest_Month <- raster("Datasets/Satellite_Covariates/Processed/Rain_Wettest_Month.tif")
+Rain_Driest_Month <- raster("Datasets/Satellite_Covariates/Processed/Rain_Driest_Month.tif")
+Rain_Seasonality <- raster("Datasets/Satellite_Covariates/Processed/Rain_Seasonality.tif")
+Rain_Wettest_Quarter <- raster("Datasets/Satellite_Covariates/Processed/Rain_Wettest_Quarter.tif")
+Rain_Driest_Quarter <- raster("Datasets/Satellite_Covariates/Processed/Rain_Driest_Quarter.tif")
+Rain_Warmest_Quarter <- raster("Datasets/Satellite_Covariates/Processed/Rain_Warmest_Quarter.tif")
+Rain_Coldest_Quarter <- raster("Datasets/Satellite_Covariates/Processed/Rain_Coldest_Quarter.tif")
 
 
 #######################################################################################################
@@ -60,8 +59,8 @@ Rain_Coldest_Quarter <- raster("Rain_Coldest_Quarter.tif")
 ##      Available Here: https://cgiarcsi.community/data/global-aridity-and-pet-database/             ##
 ##                                                                                                   ##
 #######################################################################################################
-PET_Yearly_Average <- raster("PET_Annual.tif")
-Aridity_Yearly_Average <- raster("GAI_Annual.tif")
+PET_Yearly_Average <- raster("Datasets/Satellite_Covariates/Processed/PET_Annual.tif")
+Aridity_Yearly_Average <- raster("Datasets/Satellite_Covariates/Processed/GAI_Annual.tif")
 
 
 #######################################################################################################
@@ -76,7 +75,7 @@ Aridity_Yearly_Average <- raster("GAI_Annual.tif")
 ##          Available from: http://www.worldpop.org.uk/data/files/                                   ##
 ##                                                                                                   ##
 #######################################################################################################
-India_Pop_Density_2010 <- raster("Pop_Density_Aggregated_Tenfold.tif")
+India_Pop_Density_2010 <- raster("Datasets/Satellite_Covariates/Processed/Pop_Density_Aggregated_Tenfold.tif")
 
 
 #######################################################################################################
@@ -95,10 +94,10 @@ India_Pop_Density_2010 <- raster("Pop_Density_Aggregated_Tenfold.tif")
 ##      Downloaded directly using Google Earth Engine and hence no processing required               ##
 ##                                                                                                   ##
 #######################################################################################################
-Day_LST_Mean <- raster("Day_Land_Surface_Temperature_Mean.tif")
-Day_LST_SD <- raster("Day_Land_Surface_Temperature_SD.tif")
-Night_LST_Mean <- raster("Night_Land_Surface_Temperature_Mean.tif")
-Night_LST_SD <- raster("Night_Land_Surface_Temperature_SD.tif")
+Day_LST_Mean <- raster("Datasets/Satellite_Covariates/Processed/Day_Land_Surface_Temperature_Mean.tif")
+Day_LST_SD <- raster("Datasets/Satellite_Covariates/Processed/Day_Land_Surface_Temperature_SD.tif")
+Night_LST_Mean <- raster("Datasets/Satellite_Covariates/Processed/Night_Land_Surface_Temperature_Mean.tif")
+Night_LST_SD <- raster("Datasets/Satellite_Covariates/Processed/Night_Land_Surface_Temperature_SD.tif")
 
 
 #######################################################################################################
@@ -118,10 +117,10 @@ Night_LST_SD <- raster("Night_Land_Surface_Temperature_SD.tif")
 ##    Downloaded directly using Google Earth Engine and hence no processing required                 ##
 ##                                                                                                   ##
 #######################################################################################################
-Tasseled_Cap_Wetness_Mean <- raster("Tasseled_Cap_Wetness_Mean_5000.tif")
-Tasseled_Cap_Wetness_SD <- raster("Tasseled_Cap_Wetness_Sd_5000.tif")
-Tasseled_Cap_Brightness_Mean <- raster("Tasseled_Cap_Brightness_Mean_5000.tif")
-Tasseled_Cap_Brightness_SD <- raster("Tasseled_Cap_Brightness_Sd_5000.tif")
+Tasseled_Cap_Wetness_Mean <- raster("Datasets/Satellite_Covariates/Processed/Tasseled_Cap_Wetness_Mean_5000.tif")
+Tasseled_Cap_Wetness_SD <- raster("Datasets/Satellite_Covariates/Processed/Tasseled_Cap_Wetness_Sd_5000.tif")
+Tasseled_Cap_Brightness_Mean <- raster("Datasets/Satellite_Covariates/Processed/Tasseled_Cap_Brightness_Mean_5000.tif")
+Tasseled_Cap_Brightness_SD <- raster("Datasets/Satellite_Covariates/Processed/Tasseled_Cap_Brightness_Sd_5000.tif")
 
 
 #######################################################################################################
@@ -134,7 +133,7 @@ Tasseled_Cap_Brightness_SD <- raster("Tasseled_Cap_Brightness_Sd_5000.tif")
 ##       Downloaded directly using Google Earth Engine and hence no processing required              ##
 ##                                                                                                   ##
 #######################################################################################################
-Elevation <- raster("Elevation.tif")
+Elevation <- raster("Datasets/Satellite_Covariates/Processed/Elevation.tif")
 
 
 #######################################################################################################
@@ -150,8 +149,8 @@ Elevation <- raster("Elevation.tif")
 ##    Downloaded directly using Google Earth Engine and hence no processing required                 ##
 ##                                                                                                   ##
 #######################################################################################################
-Specific_Humidity_Mean <- raster("Specific_Humidity_mean.tif")
-Specific_Humidity_SD <- raster("Specific_Humidity_sd.tif")
+Specific_Humidity_Mean <- raster("Datasets/Satellite_Covariates/Processed/Specific_Humidity_mean.tif")
+Specific_Humidity_SD <- raster("Datasets/Satellite_Covariates/Processed/Specific_Humidity_sd.tif")
 
 
 #######################################################################################################
@@ -169,7 +168,7 @@ Specific_Humidity_SD <- raster("Specific_Humidity_sd.tif")
 ##      Downloaded directly using Google Earth Engine and hence no processing required               ##
 ##                                                                                                   ##
 #######################################################################################################
-EVI_Mean <- raster("EVI_Overall_Mean.tif")
+EVI_Mean <- raster("Datasets/Satellite_Covariates/Processed/EVI_Overall_Mean.tif")
 
 
 #######################################################################################################
@@ -186,7 +185,7 @@ EVI_Mean <- raster("EVI_Overall_Mean.tif")
 ##    Downloaded directly using Google Earth Engine and hence no processing required                 ##
 ##                                                                                                   ##
 #######################################################################################################
-Flow_Accumulation <- raster("Flow_Accumulation.tif")
+Flow_Accumulation <- raster("Datasets/Satellite_Covariates/Processed/Flow_Accumulation.tif")
 
 
 #######################################################################################################
@@ -209,10 +208,10 @@ Flow_Accumulation <- raster("Flow_Accumulation.tif")
 ##        warped. I don't know.                                                                      ## 
 ##                                                                                                   ##
 #######################################################################################################
-Water_Areas_Max_Extent <- raster("Water_max_extent.tif")  # binary image contianing 1 anywhere water was ever detected
-Water_Areas_Seasonality <- raster("Water_seasonality.tif") # number of months where water is present
-Water_Areas_Occurrence <- raster("Water_occurrence.tif")  # the frequency with which water was present
-Water_Areas_Recurrence <- raster("Water_Recurrence.tif") # frequency with which water returns year to year
+Water_Areas_Max_Extent <- raster("Datasets/Satellite_Covariates/Processed/Water_max_extent.tif")  # binary image contianing 1 anywhere water was ever detected
+Water_Areas_Seasonality <- raster("Datasets/Satellite_Covariates/Processed/Water_seasonality.tif") # number of months where water is present
+Water_Areas_Occurrence <- raster("Datasets/Satellite_Covariates/Processed/Water_occurrence.tif")  # the frequency with which water was present
+Water_Areas_Recurrence <- raster("Datasets/Satellite_Covariates/Processed/Water_Recurrence.tif") # frequency with which water returns year to year
 
 #######################################################################################################
 ##                                                                                                   ##
@@ -235,7 +234,7 @@ Water_Areas_Recurrence <- raster("Water_Recurrence.tif") # frequency with which 
 ##                                                                                                   ##
 #######################################################################################################
 #Water_Areas_WWF <- raster("WWF_Layers_1_&_2_Processed.tif")
-WWF_Distance_to_Water <- raster("WWF_Distance_to_Water.tif")
+WWF_Distance_to_Water <- raster("Datasets/Satellite_Covariates/Processed/WWF_Distance_to_Water.tif")
 # WWF_Distance_to_Wetlands <- raster("WWF_Distance_to_Wetlands.tif")
 #plot(log(WWF_Distance_to_Water))
 
@@ -252,7 +251,7 @@ WWF_Distance_to_Water <- raster("WWF_Distance_to_Water.tif")
 ##                                                                                                   ##
 #######################################################################################################
 #Water_Areas_DCW <- raster("Water_Areas_DIVA_GIS_Processed.tif")
-DCW_Distance_to_Water <- raster("DCW_Distance_to_Water.tif")
+DCW_Distance_to_Water <- raster("Datasets/Satellite_Covariates/Processed/DCW_Distance_to_Water.tif")
 
 
 #######################################################################################################
@@ -279,7 +278,7 @@ DCW_Distance_to_Water <- raster("DCW_Distance_to_Water.tif")
 ##    https://developers.google.com/earth-engine/datasets/catalog/Oxford_MAP_IGBP_Fractional_Landcover_5km_Annual 
 ##                                                                                                   ##
 #######################################################################################################
-Dominant_Landcover <- raster("Dominant_Landcover.tif")
+Dominant_Landcover <- raster("Datasets/Satellite_Covariates/Processed/Dominant_Landcover.tif")
 
 
 #######################################################################################################
@@ -293,20 +292,20 @@ Dominant_Landcover <- raster("Dominant_Landcover.tif")
 ##     Downloaded directly from MAP servers hence no processing required                             ##
 ##                                                                                                   ##
 #######################################################################################################
-City_Accessibility <- raster("accessibility_to_cities_2015_v1.0.tif")
-CHIRPS_Max <- raster("chirps-v2-0.Synoptic.Overall.max.5km.tif")
-CHIRPS_Min <- raster("chirps-v2-0.Synoptic.Overall.min.5km.tif")
-CHIRPS_Mean <- raster("chirps-v2-0.Synoptic.Overall.mean.5km.tif")
-WC_A0 <- raster("WorldClim_TFA_Precip_a0.Synoptic.Overall.Data.5km.mean.tif")
-WC_A1 <- raster("WorldClim_TFA_Precip_a1.Synoptic.Overall.Data.5km.mean.tif")
-WC_A2 <- raster("WorldClim_TFA_Precip_a2.Synoptic.Overall.Data.5km.mean.tif")
-WC_A3 <- raster("WorldClim_TFA_Precip_a3.Synoptic.Overall.Data.5km.mean.tif")
-WC_P0 <- raster("WorldClim_TFA_Precip_p0.Synoptic.Overall.Data.5km.mean.tif")
-WC_P1 <- raster("WorldClim_TFA_Precip_p1.Synoptic.Overall.Data.5km.mean.tif")
-WC_P2 <- raster("WorldClim_TFA_Precip_p2.Synoptic.Overall.Data.5km.mean.tif")
-WC_P3 <- raster("WorldClim_TFA_Precip_p3.Synoptic.Overall.Data.5km.mean.tif")
-Urban_Footprint <- raster("Global_Urban_Footprint_5km_PropUrban.tif")
-Irrigated_Areas <- raster("Irrigated_Areas_Global_5k.tif")
+City_Accessibility <- raster("Datasets/Satellite_Covariates/Processed/accessibility_to_cities_2015_v1.0.tif")
+CHIRPS_Max <- raster("Datasets/Satellite_Covariates/Processed/chirps-v2-0.Synoptic.Overall.max.5km.tif")
+CHIRPS_Min <- raster("Datasets/Satellite_Covariates/Processed/chirps-v2-0.Synoptic.Overall.min.5km.tif")
+CHIRPS_Mean <- raster("Datasets/Satellite_Covariates/Processed/chirps-v2-0.Synoptic.Overall.mean.5km.tif")
+WC_A0 <- raster("Datasets/Satellite_Covariates/Processed/WorldClim_TFA_Precip_a0.Synoptic.Overall.Data.5km.mean.tif")
+WC_A1 <- raster("Datasets/Satellite_Covariates/Processed/WorldClim_TFA_Precip_a1.Synoptic.Overall.Data.5km.mean.tif")
+WC_A2 <- raster("Datasets/Satellite_Covariates/Processed/WorldClim_TFA_Precip_a2.Synoptic.Overall.Data.5km.mean.tif")
+WC_A3 <- raster("Datasets/Satellite_Covariates/Processed/WorldClim_TFA_Precip_a3.Synoptic.Overall.Data.5km.mean.tif")
+WC_P0 <- raster("Datasets/Satellite_Covariates/Processed/WorldClim_TFA_Precip_p0.Synoptic.Overall.Data.5km.mean.tif")
+WC_P1 <- raster("Datasets/Satellite_Covariates/Processed/WorldClim_TFA_Precip_p1.Synoptic.Overall.Data.5km.mean.tif")
+WC_P2 <- raster("Datasets/Satellite_Covariates/Processed/WorldClim_TFA_Precip_p2.Synoptic.Overall.Data.5km.mean.tif")
+WC_P3 <- raster("Datasets/Satellite_Covariates/Processed/WorldClim_TFA_Precip_p3.Synoptic.Overall.Data.5km.mean.tif")
+Urban_Footprint <- raster("Datasets/Satellite_Covariates/Processed/Global_Urban_Footprint_5km_PropUrban.tif")
+Irrigated_Areas <- raster("Datasets/Satellite_Covariates/Processed/Irrigated_Areas_Global_5k.tif")
 
 # GlobCover <- raster("Globcover_v2.2_2004-2006_MAP-Mastergrids_5k.tif") # near identical to Landcover so removed
 # Globcover_Wet_Areas <- raster("Wet_Areas_In_GLWD_Or_Globcover.tif") # near identical to Wetlands so removed 

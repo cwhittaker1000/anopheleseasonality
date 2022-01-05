@@ -9,16 +9,14 @@ library(ggplot2); library(reshape2); library(deSolve); library(parallel); librar
 library(pracma); library(rstan); library(ggplot2); library(invgamma); library(tictoc); library(dplyr); 
 library(VGAM); library(rgl); library(car); library(caret); library(mltools); library(data.table); library(glmnet);
 library(locfit); library(oce)
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/")
-source("R_Scripts/1_Covariate_Extraction_and_Collation/2_Polygon_Construction.R")
+source("Analyses/1_Covariate_Extraction_and_Collation/2_Polygon_Construction.R")
 source("Functions/Periodic_Kernel_GP_Fitting_Functions.R")
 source("Functions/Von_Mises_Fitting_Functions.R")
 source("Functions/Time_Series_Operation_Functions.R")
 source("Functions/Logistic_Regression_Functions.R")
 source("Functions/Spatial_Prediction_Functions.R")
 India_Surroundings_Extent <- extent(60, 100, 0, 40) # Creates extent covering India - use to crop raster
-source("R_Scripts/1_Covariate_Extraction_and_Collation/1_Loading_Rasters.R")
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/")
+source("Analyses/1_Covariate_Extraction_and_Collation/1_Loading_Rasters.R")
 mosquito_data <- read.csv("Datasets/Systematic_Review/Processed_Catch_Data.csv", stringsAsFactors = FALSE)
 keep <- mosquito_data$Keep
 species <- mosquito_data$Species
@@ -31,7 +29,7 @@ set.seed(58)
 india <- getData("GADM", country = "IND", level = 0)
 
 # Loading in Probabilities and Covariate Raster Stack
-temporal_cluster_probabilities <- readRDS("Outputs/Logistic_Regression_Output/Informative_Prior/Reduced_Subset_Predictive_Outputs.rds")
+temporal_cluster_probabilities <- readRDS("Outputs/Logistic_Regression_Output/Multinomial_Logistic_Regression_Predictive_Outputs.rds")
 cluster_1_prob <- temporal_cluster_probabilities$cluster_1
 cluster_2_prob <- temporal_cluster_probabilities$cluster_2
 cluster_3_prob <- temporal_cluster_probabilities$cluster_3
@@ -109,26 +107,32 @@ for (i in 1:272) {
 ##                    Masking and Plotting the Output for Cluster Probabilities                       ##
 ##                                                                                                    ##                                                                                                    ##
 ########################################################################################################
+threshold <- 0.66
+
 extent <- extent(raster_stack[[1]])
 cluster_1_matrix <- matrix(cluster_1_prob, nrow = 891, ncol = 890, byrow = TRUE)
 cluster_1_raster <- raster(cluster_1_matrix)
 extent(cluster_1_raster) <- extent
 cluster_1_raster <- mask(cluster_1_raster, india)
+cluster_1_raster <- cluster_1_raster > threshold
 
 cluster_2_matrix <- matrix(cluster_2_prob, nrow = 891, ncol = 890, byrow = TRUE)
 cluster_2_raster <- raster(cluster_2_matrix)
 extent(cluster_2_raster) <- extent
 cluster_2_raster <- mask(cluster_2_raster, india)
+cluster_2_raster <- cluster_2_raster > threshold
 
 cluster_3_matrix <- matrix(cluster_3_prob, nrow = 891, ncol = 890, byrow = TRUE)
 cluster_3_raster <- raster(cluster_3_matrix)
 extent(cluster_3_raster) <- extent
 cluster_3_raster <- mask(cluster_3_raster, india)
+cluster_3_raster <- cluster_3_raster > threshold
 
 cluster_4_matrix <- matrix(cluster_4_prob, nrow = 891, ncol = 890, byrow = TRUE)
 cluster_4_raster <- raster(cluster_4_matrix)
 extent(cluster_4_raster) <- extent
 cluster_4_raster <- mask(cluster_4_raster, india)
+cluster_4_raster <- cluster_4_raster > threshold
 
 cluster_1_points <- species_geos[species_geos$cluster == 1, ]
 cluster_2_points <- species_geos[species_geos$cluster == 2, ]
