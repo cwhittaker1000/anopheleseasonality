@@ -56,12 +56,6 @@ months_length <- c(10, 10, 11, 10, 9, 9, 10, 10, 11, 10, 10, 10, 10, 10, 11, 10,
 leap_year_months_length <- c(10, 10, 11, 10, 10, 9, 10, 10, 11, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 11, 10, 10, 11, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 11)
 monthly_sum_rainfall_storage <- matrix(nrow = length(mosquito_data[, 1]), ncol = 36)
 
-pdf("Figures/Figure_2/Figure_2C_Rainfall_Cross_Correlations.pdf", height = 4, width = 15)
-layout.matrix <- matrix(c(1, 1, 2, 2), nrow = 1, ncol = 4, byrow = TRUE)
-layout(mat = layout.matrix)
-par(oma = c(4, 4, 4, 4), mar = c(2, 2, 2, 2))
-ylim <- c(0, 0.1)
-
 for (i in 1:length(mosquito_data_full$Ref_ID)) {
   single_record_dataframe <- mosquito_data_full[i, ]
   rainfall <- generate_rainfall_vector(single_record_dataframe)
@@ -69,71 +63,27 @@ for (i in 1:length(mosquito_data_full$Ref_ID)) {
   monthly_sum_rainfall_storage[i, ] <- monthly_rainfall_output$sum_monthly
 }
 
+pdf("Figures/Figure_2/Figure_2C_Rainfall_Cross_Correlations.pdf", height = 5.5, width = 5.5)
+
 palette(c("#F15025", "#7ACC70", "#00A7E1", "#F2328C"))
-months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-timepoints <- seq(0, 35)
-for (i in 1:length(fitted_mosquito_data[, 1])) {
-  cluster_label <- cluster_labels$Cluster[i]
-  if (i == 1) {
-    plot(timepoints, monthly_sum_rainfall_storage[i, ], type = "l", ylim = c(0, 400), xaxt = "n",
-         col = adjustcolor("grey", alpha.f = 0.05), xlab = "Month", ylab = "Rainfall (mm)", las = 1)
-    # plot(timepoints, monthly_sum_rainfall_storage[i, ], type = "l", ylim = c(0, 400), xaxt = "n",
-    #      col = adjustcolor(palette()[cluster_label], alpha.f = 0.075), xlab = "Month", ylab = "Rainfall (mm)", las = 1)
-    axis(1, at = seq(0, 35, 3), labels = months, las = 2)
-  } else {
-    lines(timepoints, monthly_sum_rainfall_storage[i, ], type = "l", xaxt = "n",
-          col = adjustcolor("grey", alpha.f = 0.055))
-    # lines(timepoints, monthly_sum_rainfall_storage[i, ], type = "l", xaxt = "n",
-    #       col = adjustcolor(palette()[cluster_label], alpha.f = 0.075))
-  }
-}
-
-mean_monthly_sum_1 <- apply(monthly_sum_rainfall_storage[cluster_labels$Cluster == 1, ], 2, mean)
-lines(timepoints, mean_monthly_sum_1, type = "l", col = adjustcolor(palette()[1], alpha.f = 0.65), lwd = 5)
-
-mean_monthly_sum_2 <- apply(monthly_sum_rainfall_storage[cluster_labels$Cluster == 2, ], 2, mean)
-lines(timepoints, mean_monthly_sum_2, type = "l", col = adjustcolor(palette()[2], alpha.f = 0.65), lwd = 5)
-
-mean_monthly_sum_3 <- apply(monthly_sum_rainfall_storage[cluster_labels$Cluster == 3, ], 2, mean)
-lines(timepoints, mean_monthly_sum_3, type = "l", col = adjustcolor(palette()[3], alpha.f = 0.65), lwd = 5)
-
-mean_monthly_sum_4 <- apply(monthly_sum_rainfall_storage[cluster_labels$Cluster == 4, ], 2, mean)
-lines(timepoints, mean_monthly_sum_4, type = "l", col = adjustcolor(palette()[4], alpha.f = 0.65), lwd = 5)
-
 ccf_storage <- c()
 for (i in 1:length(fitted_mosquito_data[, 1])) {
   cross_corr_call <- ccf(fitted_mosquito_data[i, ], monthly_sum_rainfall_storage[i, ], lag.max = 0, plot = FALSE)
   ccf <- cross_corr_call$acf
   ccf_storage[i] <- ccf
 }
-
 cluster_ccfs <- tibble(Cluster = cluster_labels$Cluster, CCF = ccf_storage)
 cluster_mean_ccfs <- cluster_ccfs %>%
   mutate(Cluster = as.factor(Cluster)) %>%
   group_by(Cluster) %>%
   summarise(mean = mean(CCF), sd = sd(CCF), se = sd(CCF)/sqrt(n()))
-palette(c("#F15025", "#7ACC70", "#00A7E1", "#F2328C", "#E71D36", "#52AD9C", "#7761B5", "#3F220F", "#D6D84F", "#363537"))
-x <- barplot(cluster_mean_ccfs$mean, ylim = c(-0.6, 0.6), las = 1, ylab = "Cross-Correlation With Rainfall",
-        col = palette()[1:4], names.arg = c("Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4"), axis.lty = 1)
-arrows(seq(from = 0.7, by = 1.2, length.out = 4), cluster_mean_ccfs$mean - 1.96 * cluster_mean_ccfs$se, 
-       seq(from = 0.7, by = 1.2, length.out = 4), cluster_mean_ccfs$mean + 1.96 * cluster_mean_ccfs$se, angle=90, code=3, length=0.2)
-dev.off()
-
-x <- barplot(cluster_mean_ccfs$mean, ylim = c(-0.6, 0.6), las = 1, ylab = "Cross-Correlation With Rainfall",
-             col = palette()[1:4], names.arg = c("Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4"), axis.lty = 1)
 
 par(mfrow = c(1, 1))
 cluster_ccfs$Cluster <- factor(cluster_ccfs$Cluster, levels=c(4, 3, 2, 1))
 
 boxplot(CCF ~ Cluster, data = cluster_ccfs, border = palette()[4:1], col = NA, horizontal = TRUE,
-        lex.order = FALSE,
-        names = c("Cluster 4", "Cluster 3", "Cluster 2", "Cluster 1"), outline = FALSE, las = 1)
-stripchart(CCF ~ Cluster,
-           data = cluster_ccfs,
-           method = "jitter",
-           jitter = 0.25,
-           pch = 20,
-           cex = 1.5,
-           col = palette()[4:1],
-           vertical = FALSE,
-           add = TRUE)
+        lex.order = FALSE, names = c("Cluster 4", "Cluster 3", "Cluster 2", "Cluster 1"), outline = FALSE, las = 1,
+        ylim = c(-1, 1), ylab = "", xlab = "")
+stripchart(CCF ~ Cluster, data = cluster_ccfs, method = "jitter", jitter = 0.25,
+           pch = 20, cex = 1.5, col = palette()[4:1], vertical = FALSE, add = TRUE)
+dev.off()
