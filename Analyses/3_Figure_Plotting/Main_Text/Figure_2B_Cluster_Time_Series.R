@@ -67,6 +67,7 @@ clusters <- clusters$Cluster
 num_clusters <- length(unique(clusters))
 months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 timepoints <- seq(0, 11.6666667, length.out = 36)
+
 pdf("Figures/Figure_2/Figure_2B_Cluster_Temporal_Patterns.pdf", height = 6, width = 6.5)
 par(mfrow = c(2, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 1, 1, 5))
 max <- 10 

@@ -8,7 +8,6 @@ library(forecast); library(TSA); library(mgcv); library(GPfit); library(rstan); 
 library(ggplot2); library(reshape2); library(deSolve); library(parallel); library(matlib); 
 library(matlab); library(pracma); library(rstan); library(ggplot2); library(invgamma); library(tictoc); 
 library(dplyr); library(VGAM); library(rgl); library(car)
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/")
 source("Functions/Periodic_Kernel_GP_Fitting_Functions.R")
 source("Functions/Von_Mises_Fitting_Functions.R")
 source("Functions/Time_Series_Operation_Functions.R")

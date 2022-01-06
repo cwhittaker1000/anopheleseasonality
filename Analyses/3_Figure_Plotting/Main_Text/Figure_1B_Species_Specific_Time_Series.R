@@ -5,7 +5,6 @@
 #######################################################################################################
 library(sp); library(raster); library(rgeos); library(rgdal); library(maptools); library(dplyr); 
 library(tidyr); library(maps);library(scales); library(zoo)
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/")
 source("Functions/Periodic_Kernel_GP_Fitting_Functions.R")
 source("Functions/Von_Mises_Fitting_Functions.R")
 source("Functions/Time_Series_Operation_Functions.R")
