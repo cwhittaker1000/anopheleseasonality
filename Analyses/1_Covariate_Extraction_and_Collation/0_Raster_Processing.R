@@ -7,10 +7,9 @@ library(rasterVis); library(raster); library(sp); library(classInt); library(col
 library(sp); library(rgeos); library(rgdal); library(maptools); library(dplyr); library(tidyr); 
 library(tmap); library(maps); library(scales); library(mapproj); library(gdalUtils); library(latticeExtra); 
 library(geosphere); library(sf); library(viridis); library(gdistance); library(tictoc)
-source("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Functions/Spatial_Data_Processing_Functions.R")
-source("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Functions/CHIRPS_Rainfall_Processing_Functions.R")
+source("Functions/Spatial_Data_Processing_Functions.R")
+source("Functions/CHIRPS_Rainfall_Processing_Functions.R")
 India_Surroundings_Extent <- extent(60, 100, 0, 40) # Creates extent covering India - use to crop raster
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Datasets/Satellite_Covariates/")
 
 
 #######################################################################################################
@@ -42,25 +41,25 @@ for (i in 1:19) {
   eval(call("<-", as.name(x), mosaic_variable))
   print(i)
 }
-raster::writeRaster(Annual_Mean_Temperature, filename = "Processed/Annual_Mean_Temperature.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Mean_Diurnal_Range, filename = "Processed/Mean_Diurnal_Range.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Isothermality, filename = "Processed/Isothermality.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Temperature_Seasonality, filename = "Processed/Temperature_Seasonality.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Max_Temp_Warmest_Month, filename = "Processed/Max_Temp_Warmest_Month.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Min_Temp_Coldest_Month, filename = "Processed/Min_Temp_Coldest_Month.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Temp_Annual_Range, filename = "Processed/Temp_Annual_Range.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Mean_Temp_Wettest_Quarter, filename = "Processed/Mean_Temp_Wettest_Quarter.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Mean_Temp_Driest_Quartest, filename = "Processed/Mean_Temp_Driest_Quartest.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Mean_Temp_Warmest_Quarter, filename = "Processed/Mean_Temp_Warmest_Quarter.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Mean_Temp_Coldest_Quarter, filename = "Processed/Mean_Temp_Coldest_Quarter.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Annual_Rain, filename = "Processed/Annual_Rain.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Rain_Wettest_Month, filename = "Processed/Rain_Wettest_Month.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Rain_Driest_Month, filename = "Processed/Rain_Driest_Month.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Rain_Seasonality, filename = "Processed/Rain_Seasonality.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Rain_Wettest_Quarter, filename = "Processed/Rain_Wettest_Quarter.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Rain_Driest_Quarter, filename = "Processed/Rain_Driest_Quarter.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Rain_Warmest_Quarter, filename = "Processed/Rain_Warmest_Quarter.tif", format = "GTiff", overwrite = TRUE)
-raster::writeRaster(Rain_Coldest_Quarter, filename = "Processed/Rain_Coldest_Quarter.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Annual_Mean_Temperature, filename = "Satellite_Covariates/Processed/Annual_Mean_Temperature.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Mean_Diurnal_Range, filename = "Satellite_Covariates/Processed/Mean_Diurnal_Range.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Isothermality, filename = "Satellite_Covariates/Processed/Isothermality.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Temperature_Seasonality, filename = "Satellite_Covariates/Processed/Temperature_Seasonality.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Max_Temp_Warmest_Month, filename = "Satellite_Covariates/Processed/Max_Temp_Warmest_Month.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Min_Temp_Coldest_Month, filename = "Satellite_Covariates/Processed/Min_Temp_Coldest_Month.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Temp_Annual_Range, filename = "Satellite_Covariates/Processed/Temp_Annual_Range.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Mean_Temp_Wettest_Quarter, filename = "Satellite_Covariates/Processed/Mean_Temp_Wettest_Quarter.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Mean_Temp_Driest_Quartest, filename = "Satellite_Covariates/Processed/Mean_Temp_Driest_Quartest.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Mean_Temp_Warmest_Quarter, filename = "Satellite_Covariates/Processed/Mean_Temp_Warmest_Quarter.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Mean_Temp_Coldest_Quarter, filename = "Satellite_Covariates/Processed/Mean_Temp_Coldest_Quarter.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Annual_Rain, filename = "Satellite_Covariates/Processed/Annual_Rain.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Rain_Wettest_Month, filename = "Satellite_Covariates/Processed/Rain_Wettest_Month.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Rain_Driest_Month, filename = "Satellite_Covariates/Processed/Rain_Driest_Month.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Rain_Seasonality, filename = "Satellite_Covariates/Processed/Rain_Seasonality.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Rain_Wettest_Quarter, filename = "Satellite_Covariates/Processed/Rain_Wettest_Quarter.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Rain_Driest_Quarter, filename = "Satellite_Covariates/Processed/Rain_Driest_Quarter.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Rain_Warmest_Quarter, filename = "Satellite_Covariates/Processed/Rain_Warmest_Quarter.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Rain_Coldest_Quarter, filename = "Satellite_Covariates/Processed/Rain_Coldest_Quarter.tif", format = "GTiff", overwrite = TRUE)
 
 
 #######################################################################################################
@@ -82,13 +81,13 @@ raster::writeRaster(Rain_Coldest_Quarter, filename = "Processed/Rain_Coldest_Qua
 ##      Available Here: https://cgiarcsi.community/data/global-aridity-and-pet-database/             ##
 ##                                                                                                   ##
 #######################################################################################################
-PET_Yearly_Average_Raw <- raster("Raw/PET_Annual/pet_he_yr/w001001.adf")
+PET_Yearly_Average_Raw <- raster("Satellite_Covariates/Raw/PET_Annual/pet_he_yr/w001001.adf")
 PET_Yearly_Average <- crop(PET_Yearly_Average_Raw, India_Surroundings_Extent)
-raster::writeRaster(PET_Yearly_Average, filename = "Processed/PET_Annual.tif", format = "GTiff", overwrite = TRUE)
-Aridity_Yearly_Average_Raw <- raster("Raw/AI_Annual/ai_yr/w001001.adf")
+raster::writeRaster(PET_Yearly_Average, filename = "Satellite_Covariates/Processed/PET_Annual.tif", format = "GTiff", overwrite = TRUE)
+Aridity_Yearly_Average_Raw <- raster("Satellite_Covariates/Raw/AI_Annual/ai_yr/w001001.adf")
 Aridity_Yearly_Average <- crop(Aridity_Yearly_Average_Raw, India_Surroundings_Extent)
 Aridity_Yearly_Average <- Aridity_Yearly_Average * 0.0001
-raster::writeRaster(Aridity_Yearly_Average, filename = "Processed/GAI_Annual.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Aridity_Yearly_Average, filename = "Satellite_Covariates/Processed/GAI_Annual.tif", format = "GTiff", overwrite = TRUE)
 
 
 #######################################################################################################
@@ -103,10 +102,10 @@ raster::writeRaster(Aridity_Yearly_Average, filename = "Processed/GAI_Annual.tif
 ##          Available from: http://www.worldpop.org.uk/data/files/                                   ##
 ##                                                                                                   ##
 #######################################################################################################
-India_Pop_Density_2010 <-  raster("Raw/IND_ppp_2010_adj_v2.tif")
+India_Pop_Density_2010 <-  raster("Satellite_Covariates/Raw/IND_ppp_2010_adj_v2.tif")
 India_Pop_Density_2010 <- aggregate(x = India_Pop_Density_2010, fact = 10, fun = sum)
 India_Pop_Density_2010 <- projectRaster(India_Pop_Density_2010, crs = '+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 ')
-raster::writeRaster(India_Pop_Density_2010, filename = "Processed/Pop_Density_Aggregated_Tenfold.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(India_Pop_Density_2010, filename = "Satellite_Covariates/Processed/Pop_Density_Aggregated_Tenfold.tif", format = "GTiff", overwrite = TRUE)
 
 
 #######################################################################################################
@@ -124,18 +123,25 @@ raster::writeRaster(India_Pop_Density_2010, filename = "Processed/Pop_Density_Ag
 ##      Downloaded directly using Google Earth Engine and hence no processing required               ##
 ##                                                                                                   ##
 #######################################################################################################
-EVI_2001 <- raster("Raw/EVI_2001.tif"); EVI_2002 <- raster("Raw/EVI_2002.tif")
-EVI_2003 <- raster("Raw/EVI_2003.tif"); EVI_2004 <- raster("Raw/EVI_2004.tif")
-EVI_2005 <- raster("Raw/EVI_2005.tif"); EVI_2006 <- raster("Raw/EVI_2006.tif")
-EVI_2007 <- raster("Raw/EVI_2007.tif"); EVI_2008 <- raster("Raw/EVI_2008.tif")
-EVI_2009 <- raster("Raw/EVI_2009.tif"); EVI_2010 <- raster("Raw/EVI_2010.tif")
-EVI_2011 <- raster("Raw/EVI_2011.tif"); EVI_2012 <- raster("Raw/EVI_2012.tif")
-EVI_2013 <- raster("Raw/EVI_2013.tif"); EVI_2014 <- raster("Raw/EVI_2014.tif")
-EVI_2015 <- raster("Raw/EVI_2015.tif")
+EVI_2001 <- raster("Satellite_Covariates/Raw/EVI_2001.tif")
+EVI_2002 <- raster("Satellite_Covariates/Raw/EVI_2002.tif")
+EVI_2003 <- raster("Satellite_Covariates/Raw/EVI_2003.tif")
+EVI_2004 <- raster("Satellite_Covariates/Raw/EVI_2004.tif")
+EVI_2005 <- raster("Satellite_Covariates/Raw/EVI_2005.tif")
+EVI_2006 <- raster("Satellite_Covariates/Raw/EVI_2006.tif")
+EVI_2007 <- raster("Satellite_Covariates/Raw/EVI_2007.tif")
+EVI_2008 <- raster("Satellite_Covariates/Raw/EVI_2008.tif")
+EVI_2009 <- raster("Satellite_Covariates/Raw/EVI_2009.tif")
+EVI_2010 <- raster("Satellite_Covariates/Raw/EVI_2010.tif")
+EVI_2011 <- raster("Satellite_Covariates/Raw/EVI_2011.tif")
+EVI_2012 <- raster("Satellite_Covariates/Raw/EVI_2012.tif")
+EVI_2013 <- raster("Satellite_Covariates/Raw/EVI_2013.tif")
+EVI_2014 <- raster("Satellite_Covariates/Raw/EVI_2014.tif")
+EVI_2015 <- raster("Satellite_Covariates/Raw/EVI_2015.tif")
 EVI_stack <- stack(EVI_2001, EVI_2002, EVI_2003, EVI_2004, EVI_2005, EVI_2006, EVI_2007, EVI_2008, 
                    EVI_2009, EVI_2010, EVI_2011, EVI_2012, EVI_2013, EVI_2014, EVI_2015)
 EVI_mean <- mean(EVI_stack)
-raster::writeRaster(EVI_mean, filename = "Processed/EVI_Overall_Mean.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(EVI_mean, filename = "Satellite_Covariates/Processed/EVI_Overall_Mean.tif", format = "GTiff", overwrite = TRUE)
 
 
 #######################################################################################################
@@ -162,16 +168,22 @@ raster::writeRaster(EVI_mean, filename = "Processed/EVI_Overall_Mean.tif", forma
 ##    https://developers.google.com/earth-engine/datasets/catalog/Oxford_MAP_IGBP_Fractional_Landcover_5km_Annual 
 ##                                                                                                   ##
 #######################################################################################################
-Landcover_2001 <- stack("Raw/Landcover_2001_5000.tif"); Landcover_2002 <- stack("Raw/Landcover_2002_5000.tif")
-Landcover_2003 <- stack("Raw/Landcover_2003_5000.tif"); Landcover_2004 <- stack("Raw/Landcover_2004_5000.tif")
-Landcover_2005 <- stack("Raw/Landcover_2005_5000.tif"); Landcover_2006 <- stack("Raw/Landcover_2006_5000.tif")
-Landcover_2007 <- stack("Raw/Landcover_2007_5000.tif"); Landcover_2008 <- stack("Raw/Landcover_2008_5000.tif")
-Landcover_2009 <- stack("Raw/Landcover_2009_5000.tif"); Landcover_2010 <- stack("Raw/Landcover_2010_5000.tif")
-Landcover_2011 <- stack("Raw/Landcover_2011_5000.tif"); Landcover_2012 <- stack("Raw/Landcover_2012_5000.tif")
+Landcover_2001 <- stack("Satellite_Covariates/Raw/Landcover_2001_5000.tif")
+Landcover_2002 <- stack("Satellite_Covariates/Raw/Landcover_2002_5000.tif")
+Landcover_2003 <- stack("Satellite_Covariates/Raw/Landcover_2003_5000.tif")
+Landcover_2004 <- stack("Satellite_Covariates/Raw/Landcover_2004_5000.tif")
+Landcover_2005 <- stack("Satellite_Covariates/Raw/Landcover_2005_5000.tif")
+Landcover_2006 <- stack("Satellite_Covariates/Raw/Landcover_2006_5000.tif")
+Landcover_2007 <- stack("Satellite_Covariates/Raw/Landcover_2007_5000.tif")
+Landcover_2008 <- stack("Satellite_Covariates/Raw/Landcover_2008_5000.tif")
+Landcover_2009 <- stack("Satellite_Covariates/Raw/Landcover_2009_5000.tif")
+Landcover_2010 <- stack("Satellite_Covariates/Raw/Landcover_2010_5000.tif")
+Landcover_2011 <- stack("Satellite_Covariates/Raw/Landcover_2011_5000.tif")
+Landcover_2012 <- stack("Satellite_Covariates/Raw/Landcover_2012_5000.tif")
 Landcover_Stack <- stack(Landcover_2001[[1]], Landcover_2002[[1]], Landcover_2003[[1]], Landcover_2004[[1]], Landcover_2005[[1]], Landcover_2006[[1]],
                          Landcover_2007[[1]], Landcover_2008[[1]], Landcover_2009[[1]], Landcover_2010[[1]], Landcover_2011[[1]], Landcover_2012[[1]])
 Dominant_Landcover <- calc(Landcover_Stack, fun = raster_mode)
-writeRaster(Dominant_Landcover, filename = "Processed/Dominant_Landcover.tif", format = "GTiff", overwrite = TRUE)
+writeRaster(Dominant_Landcover, filename = "Satellite_Covariates/Processed/Dominant_Landcover.tif", format = "GTiff", overwrite = TRUE)
 
 
 #######################################################################################################
@@ -186,7 +198,7 @@ writeRaster(Dominant_Landcover, filename = "Processed/Dominant_Landcover.tif", f
 ##    http://www.diva-gis.org/gdata (Unprocessed, vector and line map of rivers, canals and lakes)   ## 
 ##                                                                                                   ##
 #######################################################################################################
-Water_Areas <- read_sf("Raw/Water_Areas_DIVA_GIS/IND_water_areas_dcw.shp")
+Water_Areas <- read_sf("Satellite_Covariates/Raw/Water_Areas_DIVA_GIS/IND_water_areas_dcw.shp")
 Water_Areas_Spatial_Polygons <- as_Spatial(Water_Areas)
 
 beginCluster()
@@ -203,13 +215,13 @@ Water_Areas_Raster[Water_Areas_Raster > 0] <- 1
 endCluster()
 
 combined <- mosaic(Water_Areas_Raster_lines, Water_Areas_Raster, fun = max)
-raster::writeRaster(combined, filename = "Processed/Water_Areas_DIVA_GIS_Processed.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(combined, filename = "Satellite_Covariates/Processed/Water_Areas_DIVA_GIS_Processed.tif", format = "GTiff", overwrite = TRUE)
 
 combined[combined == 0] <- NA
 Distance_to_Water_DCW <- distance(combined, progress = "text")
-raster::writeRaster(Distance_to_Water_DCW, filename = "Processed/DCW_Distance_to_Water.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Distance_to_Water_DCW, filename = "Satellite_Covariates/Processed/DCW_Distance_to_Water.tif", format = "GTiff", overwrite = TRUE)
 
-# LINES NOT DONE YET AS WAS TAKING AGES. MIGHT NOT BE NECESSARY
+# CONSIDER ADDING LINES IN BUT COMPUTATIONALLY EXPENSIVE AND DOESN'T ADD A GREAT DEAL OVER AREAS.
 # beginCluster()
 # Water_Lines <- read_sf("Raw/Water_Areas_DIVA_GIS/IND_water_lines_dcw.shp")
 # Water_Lines_Spatial_Lines <- as_Spatial(Water_Lines)
@@ -241,11 +253,11 @@ raster::writeRaster(Distance_to_Water_DCW, filename = "Processed/DCW_Distance_to
 ##        Chart of the World) to calculate distance to permanent rivers.                             ##
 ##                                                                                                   ##
 #######################################################################################################
-Small_Water_Bodies <- read_sf("Raw/GWLD_Level_2/glwd_2.shp")
+Small_Water_Bodies <- read_sf("Satellite_Covariates/Raw/GWLD_Level_2/glwd_2.shp")
 Small_Water_Bodies <- as_Spatial(Small_Water_Bodies)
 Small_Water_Bodies <- crop(Small_Water_Bodies, India_Surroundings_Extent)
 
-Large_Water_Bodies <- read_sf("Raw/GWLD_Level_1/glwd_1.shp")
+Large_Water_Bodies <- read_sf("Satellite_Covariates/Raw/GWLD_Level_1/glwd_1.shp")
 Large_Water_Bodies <- as_Spatial(Large_Water_Bodies)
 Large_Water_Bodies <- crop(Large_Water_Bodies, India_Surroundings_Extent)
 Large_Water_Bodies <- Large_Water_Bodies[, names(Small_Water_Bodies)]
@@ -263,12 +275,12 @@ Water_Areas_Raster_Lines <- rasterize(All_Water_Bodies_Lines, water_areas_blank_
 Water_Areas_Raster_Lines[Water_Areas_Raster_Lines > 0] <- 1
 
 combined <- mosaic(Water_Areas_Raster_Polygons, Water_Areas_Raster_Lines, fun = max)
-raster::writeRaster(combined, filename = "Processed/WWF_Layers_1_&_2_Processed.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(combined, filename = "Satellite_Covariates/Processed/WWF_Layers_1_&_2_Processed.tif", format = "GTiff", overwrite = TRUE)
 
 combined[combined == 0] <- NA
 Distance_to_Water_WWF <- distance(combined, progress = "text")
 plot(Distance_to_Water_WWF)
-raster::writeRaster(Distance_to_Water_WWF, filename = "Processed/WWF_Distance_to_Water.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Distance_to_Water_WWF, filename = "Satellite_Covariates/Processed/WWF_Distance_to_Water.tif", format = "GTiff", overwrite = TRUE)
 
 
 #######################################################################################################
@@ -281,7 +293,7 @@ dates <- date_generator(1981)
 
 rainfall_stack <- matrix(nrow = number_to_do, ncol = length(dates))
 for (i in 1:length(dates)) {
-  file_name <- paste0("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Datasets/CHIRPS_Rainfall_Data/Overall_India_CHIRPS_Rainfall/rainfall_", dates[i], ".tif")
+  file_name <- paste0("Datasets/CHIRPS_Rainfall_Data/Overall_India_CHIRPS_Rainfall/rainfall_", dates[i], ".tif")
   temp_raster <- raster(file_name)
   rainfall_stack[, i] <- as.vector(temp_raster)[1:number_to_do] # check whether as.vector takes the raster row by row or column by column
   print(i)
@@ -332,8 +344,6 @@ r <- raster(mat_version)
 extent(r) <- extent
 plot(r)
 
-
-
 #######################################################################################################
 ##                                                                                                   ##
 ##                           Other Malaria Atlas Project Covariates                                  ##
@@ -345,11 +355,11 @@ plot(r)
 ##     Downloaded directly from MAP servers hence no processing required                             ##
 ##                                                                                                   ##
 #######################################################################################################
-Wetlands <- raster("Processed/WWF_Global_Lakes_Wetlands_Level3.tif")
+Wetlands <- raster("Satellite_Covariates/Processed/WWF_Global_Lakes_Wetlands_Level3.tif")
 Wetlands <- crop(Wetlands, India_Surroundings_Extent)
 Wetlands[Wetlands >= 1] <- 1 
 Wetlands[Wetlands < 1] <- NA 
 Distance_to_Wetlands <- distance(Wetlands, progress = "text")
 plot(Distance_to_Wetlands)
-raster::writeRaster(Distance_to_Wetlands, filename = "Processed/WWF_Distance_to_Wetlands.tif", format = "GTiff", overwrite = TRUE)
+raster::writeRaster(Distance_to_Wetlands, filename = "Satellite_Covariates/Processed/WWF_Distance_to_Wetlands.tif", format = "GTiff", overwrite = TRUE)
 

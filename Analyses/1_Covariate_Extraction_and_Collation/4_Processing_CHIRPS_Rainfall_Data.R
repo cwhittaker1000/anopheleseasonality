@@ -9,16 +9,15 @@
 ##    files, with a single .csv file for each sampling site.                                         ##
 ##                                                                                                   ##
 #######################################################################################################
-library(dplyr); library(raster); library(rgdal); library(sf); library(raster); library(sp); library(tictoc)
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/")
+library(dplyr); library(raster); library(rgdal); library(sf); library(raster); library(sp); library(tictoc); library(here)
 
 source("Functions/CHIRPS_Rainfall_Processing_Functions.R") # functions
-source("R_Scripts/1_Covariate_Extraction_and_Collation/2_Polygon_Construction.R") # spatial information
+source("Analyses/1_Covariate_Extraction_and_Collation/2_Polygon_Construction.R") # spatial information
 spatial_information <- read.csv("Datasets/Systematic_Review/Geographical_Data.csv", stringsAsFactors = FALSE) # temporal information
 
 spatial_metadata <- spatial_information[, c(3, 7, 8)]
 location_coordinates <- location_coordinates[order(location_coordinates$Location_ID), ]
-directory <- "C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Datasets/CHIRPS_Rainfall_Data/Overall_India_CHIRPS_Rainfall"
+directory <- paste0(here("Datasets/CHIRPS_Rainfall_Data/"), "/Overall_India_CHIRPS_Rainfall")
 
 # Extract Location and Date Specific Rainfall for All Locations 
 for (i in 1:max(location_coordinates$Location_ID)) {
