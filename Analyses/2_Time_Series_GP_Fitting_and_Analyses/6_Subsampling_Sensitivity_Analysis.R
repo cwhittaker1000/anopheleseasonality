@@ -45,7 +45,7 @@ hydro_red <- c("Water_Areas_Occurrence", "Water_Areas_Recurrence", "Flow_Accumul
 landcover_red <- c("City_Accessibility", "Dominant_Landcover")
 reduced_subset <- c(temp_red, rain_red, arid_red, hydro_red, landcover_red)
 
-colnames(covariates)[10] <- "Mean_Temp_Driest_Quarter"
+colnames(covariates)[10] <- "Mean_Temp_Driest_Quarter" # correcting spelling error in original run
 covariates <- covariates[order(covariates[, "location_IDs"]), ]
 covariates <- covariates[, -1]
 covariates <- as.data.frame(covariates)
@@ -191,11 +191,3 @@ lines(c(-1, 0, 1, 2), c(-1, 0, 1, 2))
 
 full_spec_coefs[4, ]
 apply(subsampled_species_coef_storage , c(2, 3), mean)[4, ]
-
-
-
-
-
-
-
-

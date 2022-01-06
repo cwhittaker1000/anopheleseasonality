@@ -7,7 +7,6 @@ library(zoo); library(forecast); library(TSA); library(mgcv); library(GPfit); li
 library(shinystan); library(ggplot2); library(reshape2); library(deSolve); library(parallel); 
 library(matlib); library(matlab); library(pracma); library(rstan); library(ggplot2); library(invgamma); 
 library(tictoc)
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/")
 source("Functions/Periodic_Kernel_GP_Fitting_Functions.R")
 mosquito_data <- read.csv("Datasets/Systematic_Review/Processed_Catch_Data.csv", stringsAsFactors = FALSE)
 species <- mosquito_data$Species
@@ -28,7 +27,7 @@ prior <- "informative"
 ##                                                                                                   ##
 #######################################################################################################
 options(mc.cores = parallel::detectCores() - 4)
-GP_model <- stan_model("Model_Files/Neg_Binom_Periodic_Kernel.stan")
+GP_model <- stan_model("Model_Files/Neg_Binom_GP_Periodic_Kernel.stan")
 par(mfrow = c(1, 1))
 
 number_interpolating_points <- 2
@@ -47,10 +46,6 @@ if (prior == "informative") {
 } else if (prior == "uninformative") {
   saveRDS(median_periods, file = "Outputs/Negative_Binomial_GP_Fitting/Uninformative_Prior/Uninformative_Prior_Median_Periods.rds")
 }
-
-hist(median_periods, breaks = 40)
-median(median_periods, na.rm = TRUE)
-mean(median_periods, na.rm = TRUE)
 
 # Visualising the Outputs Manually 
 for (i in 1:272) {

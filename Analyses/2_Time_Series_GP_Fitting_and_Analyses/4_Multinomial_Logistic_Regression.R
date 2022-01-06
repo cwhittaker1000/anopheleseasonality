@@ -124,12 +124,8 @@ STAN_fit <- sampling(STAN_GLM, data = STAN_Data, iter = 3000, chains = 3, refres
 check_hmc_diagnostics(STAN_fit)
 fit <- rstan::extract(STAN_fit)
 
-if (prior == "informative") {
-  saveRDS(fit, "Outputs/Logistic_Regression_Output/Informative_Prior/Reduced_Subset_STAN_Output.rds")
-} else if (prior == "uninformative") {
-  saveRDS(fit, "Outputs/Logistic_Regression_Output/Uninformative_Prior/Reduced_Subset_STAN_Output.rds")
-}
-fit <- readRDS("Outputs/Logistic_Regression_Output/Informative_Prior/Reduced_Subset_STAN_Output.rds")
+saveRDS(fit, "Outputs/Logistic_Regression_Output/Multinomial_Logistic_Regression_STAN_Output.rds")
+fit <- readRDS("Outputs/Logistic_Regression_Output/Multinomial_Logistic_Regression_STAN_Output.rds")
 
 
 #######################################################################################################
@@ -308,51 +304,3 @@ base_size <- 9
 ggplot(envt_melt_cor, aes(x = Var2, y = Var1)) + 
   geom_tile(aes(fill = value), colour = "white") +
   scale_fill_gradient2(low = "blue", mid = "white", high = "red") + xlab ("") + ylab("")
-
-
-
-#####################
-### Miscellaneous ###
-#####################
-cluster_spec_melt$Var1 <- factor(cluster_spec_melt$Var1, levels = unique(cluster_spec_melt$Var1))
-ggplot(cluster_spec_melt, aes(x = Var2, y = value, fill = Var1)) +
-  geom_bar(stat = "identity", color = "black", position = position_dodge()) +
-  xlab ("") + 
-  ylab("Coefficient Size") +
-  theme_minimal() +
-  theme(text = element_text(size=20), axis.title.y = element_text(vjust = 5),
-        plot.margin=unit(c(1,1,1.5,1.2),"cm")) +
-  guides(fill=guide_legend(title="Species")) +
-  scale_fill_manual(values = c("#29B200" , "#2EBEEA", "#A948EA", "#898989", "#E8A50B", "#E0521A", "#A54D2C"))
-
-# Supplementary Figure - Cluster 1 Envt Coefs Ordered
-cluster_1_betas <- envt_betas[, 1]
-index_for_ordering <- order(cluster_1_betas)
-envt_melt_test <- melt(envt_betas)
-envt_melt_test$Var1 <- factor(envt_melt_test$Var1, levels = envt_melt_test$Var1[index_for_ordering])
-base_size <- 9
-ggplot(envt_melt_test, aes(x = Var2, y = Var1)) + 
-  geom_tile(aes(fill = value), colour = "white") +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red") + xlab ("") + ylab("")
-
-
-envt_betas[, 1][order(abs(envt_betas[, 1]), decreasing = TRUE)[1:5]]
-envt_betas[, 2][order(abs(envt_betas[, 2]), decreasing = TRUE)[1:5]]
-envt_betas[, 3][order(abs(envt_betas[, 3]), decreasing = TRUE)[1:5]]
-envt_betas[, 4][order(abs(envt_betas[, 4]), decreasing = TRUE)[1:5]]
-top_vars <- c("Water Areas Max Extent", "LC8", "EVI Mean", "Mean Temp Wettest Quarter", "Rain Warmest Quarter", 
-              "DCW Distance to Water", "PET Yearly Average", "Flow Accumulation", "Mean Temp Coldest Quarter", 
-              "Night LST SD", "WC A3", "Urban Footprint", "Rain Coldest Quarter", "Tasseled Cap Brightness Mean", 
-              "Rain Coldest Quarter", "India Pop Density 2010", "WC P3", "Max Temp Warmest Month")
-envt_melt_top <- envt_melt[envt_melt$Var1 %in% top_vars, ] 
-envt_melt_top$Var1 <- factor(envt_melt_top$Var1, levels = rev(unique(envt_melt_top$Var1[order(envt_melt_top$Var1)])))
-base_size <- 9
-ggplot(envt_melt_top, aes(x = Var2, y = Var1)) + 
-  geom_tile(aes(fill = value), colour = "white") +
-  scale_fill_gradient2("Effect Size", low = "blue", mid = "white", high = "red") +
-  xlab ("") + 
-  ylab("") +
-  theme_minimal()
-
-
-

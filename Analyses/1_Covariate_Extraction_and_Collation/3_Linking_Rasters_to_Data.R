@@ -6,13 +6,11 @@
 library(rasterVis); library(raster); library(sp); library(classInt); library(colorspace);
 library(maps); library(sp); library(rgeos); library(rgdal); library(maptools); library(dplyr);
 library(tidyr); library(tmap); library(maps); library(scales); library(mapproj); library(gdalUtils);
-library(latticeExtra); library(geosphere); library(sf); library(ggplot2); 
+library(latticeExtra); library(geosphere); library(sf); library(ggplot2); library(here)
 library(tsne); library(FactoMineR); library(factoextra); library(MALDIquant); library(rgl)
 
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/R_Scripts/1_Covariate_Extraction_and_Collation/")
-source("1_Loading_Rasters.R")
-setwd("C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/R_Scripts/1_Covariate_Extraction_and_Collation/")
-source("2_Polygon_Construction.R")
+source("Analyses/1_Covariate_Extraction_and_Collation/1_Loading_Rasters.R")
+source("Analyses/1_Covariate_Extraction_and_Collation/2_Polygon_Construction.R")
 India_Surroundings_Extent <- extent(60, 100, 0, 40) # Creates extent covering India - use to crop raster
 
 
@@ -25,7 +23,7 @@ India_Surroundings_Extent <- extent(60, 100, 0, 40) # Creates extent covering In
 ########################################################################################################
 rasters <- c("Annual_Mean_Temperature", "Mean_Diurnal_Range", "Isothermality", "Temperature_Seasonality", 
              "Max_Temp_Warmest_Month", "Min_Temp_Coldest_Month", "Temp_Annual_Range", "Mean_Temp_Wettest_Quarter", 
-             "Mean_Temp_Driest_Quartest", "Mean_Temp_Warmest_Quarter", "Mean_Temp_Coldest_Quarter", "Annual_Rain", 
+             "Mean_Temp_Driest_Quarter", "Mean_Temp_Warmest_Quarter", "Mean_Temp_Coldest_Quarter", "Annual_Rain", 
              "Rain_Wettest_Month", "Rain_Driest_Month", "Rain_Seasonality", "Rain_Wettest_Quarter", "Rain_Driest_Quarter", 
              "Rain_Warmest_Quarter", "Rain_Coldest_Quarter",            
              "PET_Yearly_Average", "Aridity_Yearly_Average",
@@ -56,7 +54,7 @@ for (i in 1:number_of_covariates) {
   print(i)
 }
 names(raster_stack) <- rasters
-writeRaster(raster_stack,"C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Datasets/Extracted_Covariates_for_Modelling/Raster_Stack.grd", format = "raster", overwrite = TRUE)
+writeRaster(raster_stack,"Datasets/Extracted_Covariates_for_Modelling/Raster_Stack.grd", format = "raster", overwrite = TRUE)
 
 
 #######################################################################################################
@@ -138,5 +136,5 @@ location_IDs <- location_coordinates$Location_ID[-locations_IDs_to_be_removed] #
                                                                                # row in the dataset, see Lines 102-111 to see 
 
 covariate_values <- cbind(location_IDs, covariate_values)
-saveRDS(covariate_values, file = "C:/Users/cw1716/Documents/Q_Drive_Copy/PhD/Chapter 2 - Statistical Analysis Seasonal Patterns/Datasets/Extracted_Covariates_for_Modelling/Extracted_Covariates.rds")
+saveRDS(covariate_values, file = "Datasets/Extracted_Covariates_for_Modelling/Extracted_Covariates.rds")
 

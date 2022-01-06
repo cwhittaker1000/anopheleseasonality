@@ -112,7 +112,6 @@ if (prior == "informative") {
   saveRDS(four_clusters, file = "Outputs/Characterisation_and_Clustering/Uninformative_Prior/Uninformative_Prior_Clustering.rds")
 }
 
-
 # 3D Plotting 
 open3d() 
 plot3d(PCA_output[, 1:3], col = four_clusters$Cluster, size = 10, xlab = "", ylab = "", zlab = "", box = FALSE)
