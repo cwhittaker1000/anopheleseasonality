@@ -3,7 +3,11 @@
 ## Overview
 This repository contains the code used to analyse the results of a systematic review exploring the seasonality of various Anopheline species endemic to India. This review was carried out in order to identify entomological surveys in which mosquito collections had been conducted monthly (or finer resolution) over a period of at least a year. 
 
-In this work, we explore the patterns of seasonality possessed by different mosquito populations, characterise these temporal dynamics in detail and develop a Bayesian framework to cluster these time-series into "dynamical archetypes" comprising groups of populations displaying similar patterns of seasonality. This work is not yet published, but has been pre-printed and is available on medRxiv: https://www.medrxiv.org/content/10.1101/2021.01.09.21249456v1.
+In this work, we explore the patterns of seasonality possessed by different mosquito populations, characterise these temporal dynamics in detail and develop a Bayesian framework to cluster these time-series into "dynamical archetypes" comprising groups of populations displaying similar patterns of seasonality. For example:
+
+![alt text](https://github.com/cwhittaker1000/anopheleseasonality/blob/main/arcehtype_example.JPG?raw=true)
+
+This work is not yet published, but has been pre-printed and is available on medRxiv: https://www.medrxiv.org/content/10.1101/2021.01.09.21249456v1.
 
 ## Repo Contents
 - [Analyses](./Analyses): Code running the analyses and generates the figures featured in the paper.
