@@ -140,26 +140,26 @@ cluster_3_points <- species_geos[species_geos$cluster == 3, ]
 cluster_4_points <- species_geos[species_geos$cluster == 4, ]
 
 # 8.5 x 7.28
-pdf(file = "Figures/Figure_6/Figure_6_Reduced_Subset_Seasonal_Profile_Predictive_Maps.pdf", height = 7.28, width = 8.5)
+pdf(file = "Figures/Figure_4/Figure_4_Thresholded_Seasonal_Profile_Predictive_Maps.pdf", height = 7.28, width = 8.5)
 palette(c("#F15025", "#7ACC70", "#00A7E1", "#F2328C", "#E71D36", "#52AD9C", "#7761B5", "#3F220F", "#D6D84F", "#363537"))
 timepoints <- seq(1, 36)
 par(mfrow = c(2, 2), oma = c(6, 6, 6, 6), mar = c(2, 0, 0, 0))
-plot(cluster_1_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, legend = FALSE, xaxt = "n")
+plot(cluster_1_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, xaxt = "n", col = c("#F2F2F2", "#F15025"), legend = FALSE)
 points(cluster_1_points$x, cluster_1_points$y, cex = 1, pch = 21, bg = palette()[1])
 plotInset(85, 8, 97.5, 17, expr = plot(timepoints, apply(normalised_mosquito_data[clusters$Cluster == 1, ], 2, mean) * 100, type = "l", lwd = 7, col = palette()[1], xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = c(0, 7)), mar=c(0, 0, 0, 0))
 text(-9, 96, "A", font = 2, cex = 2.5)
 
-plot(cluster_2_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, legend = FALSE, axes = FALSE)
+plot(cluster_2_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, axes = FALSE, col = c("#F2F2F2", "#7ACC70"), legend = FALSE)
 points(cluster_2_points$x, cluster_2_points$y, cex = 1, pch = 21, bg = palette()[2])
 plotInset(85, 8, 97.5, 17, expr = plot(timepoints, apply(normalised_mosquito_data[clusters$Cluster == 2, ], 2, mean) * 100, type = "l", lwd = 7, col = palette()[2], xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = c(0, 7)), mar=c(0, 0, 0, 0))
 text(-9, 96, "B", font = 2, cex = 2.5)
 
-plot(cluster_3_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, legend = FALSE)
+plot(cluster_3_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, col = c("#F2F2F2", "#00A7E1"), legend = FALSE)
 points(cluster_3_points$x, cluster_3_points$y, cex = 1, pch = 21, bg = palette()[3])
 plotInset(85, 8, 97.5, 17, expr = plot(timepoints, apply(normalised_mosquito_data[clusters$Cluster == 3, ], 2, mean) * 100, type = "l", lwd = 7, col = palette()[3], xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = c(0, 7)), mar=c(0, 0, 0, 0))
 text(-9, 96, "C", font = 2, cex = 2.5)
 
-plot(cluster_4_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, legend = FALSE, yaxt = "n")
+plot(cluster_4_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, yaxt = "n", col = c("#F2F2F2", "#F2328C"), legend = FALSE)
 points(cluster_4_points$x, cluster_4_points$y, cex = 1, pch = 21, bg = palette()[4])
 plotInset(85, 8, 97.5, 17, expr = plot(timepoints, apply(normalised_mosquito_data[clusters$Cluster == 4, ], 2, mean) * 100, type = "l", lwd = 7, col = palette()[4], xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = c(0, 7)), mar=c(0, 0, 0, 0))
 text(-9, 96, "D", font = 2, cex = 2.5)
