@@ -88,7 +88,7 @@ Number_Obs_Sub <- sum(species == "Subpictus")
 options(mc.cores = 3)
 STAN_GLM <- stan_model("Model_Files/Multinomial_Spec_Spec_Intercepts.stan")
 
-subsamples <- 25
+subsamples <- 11
 iterations <- 30
 subsampled_species_coef_storage <- array(data = NA, dim = c(iterations, 7, Number_Clusters))
 
@@ -126,10 +126,12 @@ for (i in 1:iterations) {
   Cluster_Identity_Fluv <- Cluster_Identity_Fluv[fluv_subsample]
   
   # Anopheles minimus - No subsampling as these have fewer observations than subsamples
-  # min_subsample <- sample(1:Number_Obs_Min, subsamples, replace = FALSE)
-  # min_subsample <- min_subsample[order(min_subsample)] 
+  min_subsample <- sample(1:Number_Obs_Min, subsamples, replace = FALSE)
+  min_subsample <- min_subsample[order(min_subsample)] 
   Envt_Variables_Min <- Envt_Variables[species == "Minimus", ]
+  Envt_Variables_Min <- Envt_Variables_Min[min_subsample, ] 
   Cluster_Identity_Min <- Cluster_Labels[species == "Minimus", 1]
+  Cluster_Identity_Min <- Cluster_Identity_Min[min_subsample]
   
   # Anopheles stephensi subsampling
   ste_subsample <- sample(1:Number_Obs_Ste, subsamples, replace = FALSE)
@@ -167,7 +169,7 @@ for (i in 1:iterations) {
   check_hmc_diagnostics(subsampled_STAN_fit)
   subsampled_fit <- rstan::extract(subsampled_STAN_fit)
   
-  saveRDS(subsampled_fit, paste0("Outputs/Logistic_Regression_Output/Subsampling/Subsampled_Multinomial_Logistic_Regression_STAN_Output_", i, ".rds"))
+  saveRDS(subsampled_fit, paste0("Outputs/Logistic_Regression_Output/Subsampling/Subsampled_Multinomial_Logistic_Regression_STAN_Output_Subsample_", subsamples, "_Iteration_", i, ".rds"))
   
   subsampled_spec_coefs <- rbind(apply(subsampled_fit$alpha_ann, 2, mean), apply(subsampled_fit$alpha_cul, 2, mean), apply(subsampled_fit$alpha_dir, 2, mean), 
                                  apply(subsampled_fit$alpha_fluv, 2, mean), apply(subsampled_fit$alpha_min, 2, mean), apply(subsampled_fit$alpha_ste, 2, mean), 
@@ -178,16 +180,79 @@ for (i in 1:iterations) {
   
 }
 
+subsampled11_species_coef_storage <- array(data = NA, dim = c(iterations, 7, Number_Clusters))
+subsampled15_species_coef_storage <- array(data = NA, dim = c(iterations, 7, Number_Clusters))
+subsampled25_species_coef_storage <- array(data = NA, dim = c(iterations, 7, Number_Clusters))
+for (i in 1:iterations) {
+  subsampled11_fit <- readRDS(paste0("Outputs/Logistic_Regression_Output/Subsampling/Subsampled_Multinomial_Logistic_Regression_STAN_Output_Subsample_11_Iteration_", i, ".rds"))
+  subsampled11_species_coefs <- rbind(apply(subsampled11_fit$alpha_ann, 2, mean), apply(subsampled11_fit$alpha_cul, 2, mean), apply(subsampled11_fit$alpha_dir, 2, mean), 
+                                      apply(subsampled11_fit$alpha_fluv, 2, mean), apply(subsampled11_fit$alpha_min, 2, mean), apply(subsampled11_fit$alpha_ste, 2, mean), 
+                                      apply(subsampled11_fit$alpha_sub, 2, mean))
+  subsampled11_species_coef_storage[i, , ] <- subsampled11_species_coefs
+  subsampled15_fit <- readRDS(paste0("Outputs/Logistic_Regression_Output/Subsampling/Subsampled_Multinomial_Logistic_Regression_STAN_Output_Subsample_15_Iteration_", i, ".rds"))
+  subsampled15_species_coefs <- rbind(apply(subsampled15_fit$alpha_ann, 2, mean), apply(subsampled15_fit$alpha_cul, 2, mean), apply(subsampled15_fit$alpha_dir, 2, mean), 
+                                      apply(subsampled15_fit$alpha_fluv, 2, mean), apply(subsampled15_fit$alpha_min, 2, mean), apply(subsampled15_fit$alpha_ste, 2, mean), 
+                                      apply(subsampled15_fit$alpha_sub, 2, mean))
+  subsampled15_species_coef_storage[i, , ] <- subsampled15_species_coefs
+  subsampled25_fit <- readRDS(paste0("Outputs/Logistic_Regression_Output/Subsampling/Subsampled_Multinomial_Logistic_Regression_STAN_Output_Subsample_25_Iteration_", i, ".rds"))
+  subsampled25_species_coefs <- rbind(apply(subsampled25_fit$alpha_ann, 2, mean), apply(subsampled25_fit$alpha_cul, 2, mean), apply(subsampled25_fit$alpha_dir, 2, mean), 
+                                      apply(subsampled25_fit$alpha_fluv, 2, mean), apply(subsampled25_fit$alpha_min, 2, mean), apply(subsampled25_fit$alpha_ste, 2, mean), 
+                                      apply(subsampled25_fit$alpha_sub, 2, mean))
+  subsampled25_species_coef_storage[i, , ] <- subsampled25_species_coefs
+  
+  print(i)
+}
+
 full_fit <- readRDS("Outputs/Logistic_Regression_Output/Multinomial_Logistic_Regression_STAN_Output.rds")
 full_spec_coefs <- rbind(apply(full_fit$alpha_ann, 2, mean), apply(full_fit$alpha_cul, 2, mean), apply(full_fit$alpha_dir, 2, mean), 
                          apply(full_fit$alpha_fluv, 2, mean), apply(full_fit$alpha_min, 2, mean), apply(full_fit$alpha_ste, 2, mean), 
                          apply(full_fit$alpha_sub, 2, mean))
 
-apply(subsampled_species_coef_storage , c(2, 3), mean)
+# Fluviatilis Coefficient Value Comparison Under Progressive Sub-Sampling
+pdf(file = "Figures/Supp_Figures/Supp_Figure_7_Subsampling_Sensitivity_Analysis.pdf", width = 9, height = 7.5)
+par(mar = c(4, 4, 4, 4), mfrow = c(2, 2))
+df <- data.frame(full_value = full_spec_coefs[4, ],
+                 sub25_value = apply(subsampled25_species_coef_storage , c(2, 3), mean)[4, ],
+                 sub11_value = apply(subsampled11_species_coef_storage , c(2, 3), mean)[4, ])
+df <- t(as.matrix(df))
+barplot(df, beside = TRUE, ylim = c(-1, 1.5), ylab = "Fluviatilis Cluster-Specific Coefficient Values",
+        names.arg = c("Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4"), las = 1)
+abline(h = max(full_spec_coefs[3, ]), col="black", lty = 3)
+abline(h = min(full_spec_coefs[3, ]), col="black", lty = 3)
 
-plot(as.vector(full_spec_coefs), as.vector(apply(subsampled_species_coef_storage , c(2, 3), mean)),
-     xlab = "full", ylab = "subsampled", xlim = c(-1, 1), ylim = c(-1, 1))
-lines(c(-1, 0, 1, 2), c(-1, 0, 1, 2))
+# Subpictus Coefficient Value Comparison Under Progressive Sub-Sampling
+df <- data.frame(full_value = full_spec_coefs[7, ],
+                 sub25_value = apply(subsampled25_species_coef_storage , c(2, 3), mean)[7, ],
+                 sub11_value = apply(subsampled11_species_coef_storage , c(2, 3), mean)[7, ])
+df <- t(as.matrix(df))
+barplot(df, beside = TRUE, ylim = c(-1, 1), ylab = "Subpictus Cluster-Specific Coefficient Values",
+        names.arg = c("Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4"), yaxt = "n")
+abline(h = max(full_spec_coefs[3, ]), col="black", lty = 3)
+abline(h = min(full_spec_coefs[3, ]), col="black", lty = 3)
+axis(side = 2, at=seq(from = -0.8, to = 1, by = 0.2), las = 2)
 
-full_spec_coefs[4, ]
-apply(subsampled_species_coef_storage , c(2, 3), mean)[4, ]
+# Hierachical Clustering Under Subsampling
+par(mar = c(3, 0, 3, 8))
+row.names(full_spec_coefs) <- c("Annularis", "Culicifacies", "Dirus", "Fluviatilis", "Minimus", "Stephensi", "Subpictus")
+colnames(full_spec_coefs) <- c("Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4")
+species_coefficient_clustering <- hclust(dist(full_spec_coefs))
+spec_dend <- species_coefficient_clustering %>%
+  as.dendrogram() %>%
+  color_branches(k = 7, col = c("#898989", "#2EBEEA",  "#A54D2C", "#29B200" , "#E0521A", "#A948EA", "#E8A50B")) %>%
+  color_labels(col = c("#898989", "#2EBEEA",  "#A54D2C", "#29B200" , "#E0521A", "#A948EA", "#E8A50B")) %>%
+  set("labels_cex", 1.5) %>%
+  set("highlight_branches_lwd", 3)
+plot(spec_dend, las = 1, ylab = "", xlab = "", main = "", horiz = TRUE, lwd = 3, cex = 2)
+
+spec_coefs11 <- apply(subsampled15_species_coef_storage , c(2, 3), mean)
+row.names(spec_coefs11) <- c("Annularis", "Culicifacies", "Dirus", "Fluviatilis", "Minimus", "Stephensi", "Subpictus")
+colnames(spec_coefs11) <- c("Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4")
+species_coefficient_clustering <- hclust(dist(spec_coefs11))
+spec_dend <- species_coefficient_clustering %>%
+  as.dendrogram() %>%
+  color_branches(k = 7, col = c("#898989", "#A54D2C",  "#2EBEEA", "#A948EA" , "#E0521A", "#29B200", "#E8A50B")) %>%
+  color_labels(col = c("#898989", "#A54D2C",  "#2EBEEA", "#A948EA" , "#E0521A", "#29B200", "#E8A50B")) %>%
+  set("labels_cex", 1.5) %>%
+  set("highlight_branches_lwd", 3)
+plot(spec_dend, las = 1, ylab = "", xlab = "", main = "", horiz = TRUE, lwd = 3, cex = 2)
+dev.off()

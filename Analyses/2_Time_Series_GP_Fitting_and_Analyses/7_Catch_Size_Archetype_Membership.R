@@ -28,6 +28,7 @@ if (prior == "informative") {
   cluster_labels <- readRDS("Outputs/Characterisation_and_Clustering/Uninformative_Prior/Uninformative_Prior_Clustering.rds")
 }
 
+summed_catch <- apply(mosquito_catch_data, 1, sum)
 df <- data.frame(Cluster = factor(cluster_labels$Cluster), catch = summed_catch)
 ggplot(df, aes(x = log(catch), fill = Cluster)) +
   geom_density(alpha = 0.5) +
@@ -38,7 +39,7 @@ ggplot(df, aes(x = log(catch), fill = Cluster)) +
 ggsave("Figures/Supp_Figures/Supp_Figure_6_Catch_Size_Archetype_Membership.pdf",
        width = 6.5, height = 4.5, units = "in")
 
-summed_catch <- apply(mosquito_catch_data, 1, sum)
+median(summed_catch)
 median(summed_catch[cluster_labels$Cluster == 1])
 median(summed_catch[cluster_labels$Cluster == 2])
 median(summed_catch[cluster_labels$Cluster == 3])
@@ -51,6 +52,7 @@ mood.test(summed_catch[cluster_labels$Cluster == 2], summed_catch[cluster_labels
 mood.test(summed_catch[cluster_labels$Cluster == 2], summed_catch[cluster_labels$Cluster == 4])
 mood.test(summed_catch[cluster_labels$Cluster == 3], summed_catch[cluster_labels$Cluster == 4])
 
+mean(summed_catch)
 mean(summed_catch[cluster_labels$Cluster == 1])
 mean(summed_catch[cluster_labels$Cluster == 2])
 mean(summed_catch[cluster_labels$Cluster == 3])
