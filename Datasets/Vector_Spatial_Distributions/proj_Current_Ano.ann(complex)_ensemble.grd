@@ -1,0 +1,25 @@
+[general]
+creator=R package 'raster'
+created=2018-02-12 02:12:49
+[georeference]
+nrows=891
+ncols=1252
+xmin=36
+ymin=-39.1
+xmax=161.2
+ymax=50
+projection=+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+[data]
+datatype=FLT4S
+byteorder=little
+nbands=4
+bandorder=BIL
+minvalue=1.71350002288818:7:1.71350002288818:7
+maxvalue=554.99951171875:966:554.99951171875:966
+nodatavalue=-3.4e+38
+[legend]
+legendtype=
+values=
+color=
+[description]
+layername=Ano.ann_EMcvByTSS_mergedAlgo_mergedRun_mergedData:Ano.ann_EMwmeanByTSS_mergedAlgo_mergedRun_mergedData:Ano.ann_EMcvByROC_mergedAlgo_mergedRun_mergedData:Ano.ann_EMwmeanByROC_mergedAlgo_mergedRun_mergedData
