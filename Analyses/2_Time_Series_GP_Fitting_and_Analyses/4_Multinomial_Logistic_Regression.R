@@ -57,8 +57,12 @@ number_covariates <- dim(covariates)[2]
 correlation <- melt(cor(covariates))
 ggplot(correlation, aes(x = Var2, y = Var1)) + 
   geom_tile(aes(fill = value), colour = "white") +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red") + xlab ("") + ylab("") +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red",
+                       breaks = c(-1, 0, 1), limits = c(-1, 1)) + 
+  xlab ("") + ylab("") +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
+hist(correlation$value[correlation$value != 1], las = 1, 
+     xlab = "Correlation Coefficient", ylim = c(0, 200))
 
 number_time_series <- length(cluster_labels$Cluster)
 temp <- cluster_labels$Cluster
