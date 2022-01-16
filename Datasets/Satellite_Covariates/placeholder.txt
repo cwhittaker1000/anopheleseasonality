@@ -1,0 +1,1 @@
+creating empty satellite covariates folder for processed directory from the GitHub release to go inside
