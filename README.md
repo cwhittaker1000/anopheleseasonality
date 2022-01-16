@@ -25,12 +25,14 @@ More information and details about the software and its use via R are available 
 
 ## Installation Guide and Instructions for Use
 The following instructions require that all the relevant `R` packages have been installed by the user and that STAN has been installed. To replicate and reproduce the analyses presented in this paper, clone this repository and download it your local machine. Then, run the relevant set of scripts:
-- Scripts in [Analyses/1_Covariate_Extraction_and_Collation](./Analyses/1_Covariate_Extraction_and_Collation) extract rainfall data and a suite of environmental covariates specific to the location each study was carried out in. 
 - Scripts in [Analyses/2_Time_Series_GP_Fitting_and_Analyses](./Analyses/2_Time_Series_GP_Fitting_and_Analyses) fit Negative Binomial Gaussian Processes to smooth the time-series, characterise their temporal properties and cluster these into dynamical archetypes.
 - Scripts in [Analyses/3_Figure_Plotting](./Analyses/3_Figure_Plotting) produce the specific plots and figures present in the paper. 
 
 ## Note
-- This repository contains all of the data used and outputs generated in the analyses carried out except for a small number which are larger than GitHub's maximum allowed file size. These particularly large outputs are available via the pinned Github Release associated with this repository. 
+- This repository contains all of the datasets/outputs generated in the analyses carried out except for a small number which are larger than GitHub's maximum allowed file size. These particularly large outputs are available via the pinned Github Release associated with this repository. 
 - The fact we have included all of these files means the repository/release is **very** large - if users do not intend to reproduce all of the analyses (but are instead interested in a particular analysis e.g. the predictive mapping or the time-series clustering), only downloading the data and files relevant to the specific analysis of interest should reduce the size significantly. 
+- Scripts in [Analyses/1_Covariate_Extraction_and_Collation](./Analyses/1_Covariate_Extraction_and_Collation) carry out the raw processing of rainfall data (from CHIRPS via Google Earth Engine: https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY) and a suite of environmental of environmental covariates (sources for each detailed in [0_Raster_Processing.R](./Analyses/1_Covariate_Extraction_and_Collation/0_Raster_Processing.R)) specific to the location each study was carried out in. The total size of these files is >20Gb and they are not provided with the repo - if the raw files are required, they must be redownloaded from the relevant sources. 
+  - Instead, we provide the processed versions of the rainfall data (available in [Location_Specific_CHIRPS_Rainfall](./Datasets/CHIRPS_Rainfall_Data/Location_Specific_CHIRPS_Rainfall)) and environmental variables (available via the GitHub release associated with this repository).
+
 
 Any issues, please post an issue on this Github repository or feel free to reach out at charles.whittaker16@imperial.ac.uk 😄 
