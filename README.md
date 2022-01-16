@@ -29,4 +29,8 @@ The following instructions require that all the relevant `R` packages have been 
 - Scripts in [Analyses/2_Time_Series_GP_Fitting_and_Analyses](./Analyses/2_Time_Series_GP_Fitting_and_Analyses) fit Negative Binomial Gaussian Processes to smooth the time-series, characterise their temporal properties and cluster these into dynamical archetypes.
 - Scripts in [Analyses/3_Figure_Plotting](./Analyses/3_Figure_Plotting) produce the specific plots and figures present in the paper. 
 
-Any issues, please post an issue on this Github repository or feel free to reach out at charles.whittaker16@imperial.ac.uk 😄
+## Note
+- This repository contains all of the data used and outputs generated in the analyses carried out except for a small number which are larger than GitHub's maximum allowed file size. These particularly large outputs are available via the pinned Github Release associated with this repository. 
+- The fact we have included all of these files means the repository/release is **very** large - if users do not intend to reproduce all of the analyses (but are instead interested in a particular analysis e.g. the predictive mapping or the time-series clustering), only downloading the data and files relevant to the specific analysis of interest should reduce the size significantly. 
+
+Any issues, please post an issue on this Github repository or feel free to reach out at charles.whittaker16@imperial.ac.uk 😄 
