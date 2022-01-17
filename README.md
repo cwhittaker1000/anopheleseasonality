@@ -1,5 +1,10 @@
 # anopheleasonality - Seasonality and Dynamics of Indian Anophelines 📈🦟
 
+<!-- badges: start -->
+[![DOI](https://zenodo.org/badge/326513361.svg)](https://zenodo.org/badge/latestdoi/326513361)
+<!-- badges: end -->
+
+
 ## Overview
 This repository contains the code used to analyse the results of a systematic review exploring the seasonality of various Anopheline species endemic to India. This review was carried out in order to identify entomological surveys in which mosquito collections had been conducted monthly (or finer resolution) over a period of at least a year. 
 
