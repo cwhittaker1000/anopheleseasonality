@@ -17,8 +17,8 @@ source("Functions/Periodic_Kernel_GP_Fitting_Functions.R")
 source("Functions/Von_Mises_Fitting_Functions.R")
 source("Functions/Time_Series_Operation_Functions.R")
 source("Functions/Logistic_Regression_Functions.R")
-source("Functions/Spatial_Prediction_Functions.R"
-       )
+source("Functions/Spatial_Prediction_Functions.R")
+
 India_Surroundings_Extent <- extent(60, 100, 0, 40) # Creates extent covering India - use to crop raster
 mosquito_data <- read.csv("Datasets/Systematic_Review/Processed_Catch_Data.csv", stringsAsFactors = FALSE)
 keep <- mosquito_data$Keep
