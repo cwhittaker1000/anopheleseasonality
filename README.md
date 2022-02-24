@@ -16,7 +16,7 @@ This work is not yet published, but has been pre-printed and is available on med
 
 ## Repo Contents
 - [Analyses](./Analyses): Code running the analyses and generates the figures featured in the paper.
-- [Datasets](./Datasets): Contains entomological (from the systematic review) and environmental data (satellite-derived) used in the analyses. Collated entomological data can specifically be found in the csv  [Processed_Catch_Data.csv](.Datasets/Systematic_Review/Processed_Catch_Data.csv).
+- [Datasets](./Datasets): Contains entomological (from the systematic review) and environmental data (satellite-derived) used in the analyses. Collated entomological data can specifically be found in the csv  [Processed_Catch_Data.csv](./Datasets/Systematic_Review/Processed_Catch_Data.csv).
 - [Figures](./Figures): Containing .PDF and .ai versions of paper figures.
 - [Functions](./Functions): Extra functions required for the analyses presented in the paper.
 - [Model Files](./Model_Files): STAN model files for Negative Binomial Gaussian Process fitting and Regularised Multinomial Logistic Regression. 
