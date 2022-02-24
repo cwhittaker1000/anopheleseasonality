@@ -168,4 +168,66 @@ mtext("Latitude (Degrees)", side = 1, outer = TRUE, cex = 1.25, font = 2, line =
 mtext("Longitude (Degrees)", side = 2, outer = TRUE, cex = 1.25, font = 2, line = 2.7, col = "grey20")
 dev.off()
 
+########################################################################################################
+##                                                                                                    ##
+##              Masking and Plotting the Output for Cluster Probabilities - Supp Figure               ##
+##                                                                                                    ##                                                                                                    ##
+########################################################################################################
+pdf(file = "Figures/Supp_Figures/Supp_Figure_9_Thresholding_Predictive_Map_Sensitivity_Analysis.pdf", height = 7.28, width = 8.5)
+
+extent <- extent(raster_stack[[1]])
+cluster_1_matrix <- matrix(cluster_1_prob, nrow = 891, ncol = 890, byrow = TRUE)
+cluster_1_raster <- raster(cluster_1_matrix)
+extent(cluster_1_raster) <- extent
+cluster_1_raster <- mask(cluster_1_raster, india)
+
+cluster_2_matrix <- matrix(cluster_2_prob, nrow = 891, ncol = 890, byrow = TRUE)
+cluster_2_raster <- raster(cluster_2_matrix)
+extent(cluster_2_raster) <- extent
+cluster_2_raster <- mask(cluster_2_raster, india)
+
+cluster_3_matrix <- matrix(cluster_3_prob, nrow = 891, ncol = 890, byrow = TRUE)
+cluster_3_raster <- raster(cluster_3_matrix)
+extent(cluster_3_raster) <- extent
+cluster_3_raster <- mask(cluster_3_raster, india)
+
+cluster_4_matrix <- matrix(cluster_4_prob, nrow = 891, ncol = 890, byrow = TRUE)
+cluster_4_raster <- raster(cluster_4_matrix)
+extent(cluster_4_raster) <- extent
+cluster_4_raster <- mask(cluster_4_raster, india)
+
+cluster_1_points <- species_geos[species_geos$cluster == 1, ]
+cluster_2_points <- species_geos[species_geos$cluster == 2, ]
+cluster_3_points <- species_geos[species_geos$cluster == 3, ]
+cluster_4_points <- species_geos[species_geos$cluster == 4, ]
+
+# 8.5 x 7.28
+palette(c("#F15025", "#7ACC70", "#00A7E1", "#F2328C", "#E71D36", "#52AD9C", "#7761B5", "#3F220F", "#D6D84F", "#363537"))
+timepoints <- seq(1, 36)
+par(mfrow = c(2, 2), oma = c(6, 6, 6, 6), mar = c(2, 0, 0, 0))
+plot(cluster_1_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, xaxt = "n", legend = FALSE)
+points(cluster_1_points$x, cluster_1_points$y, cex = 1, pch = 21, bg = palette()[1])
+plotInset(85, 8, 97.5, 17, expr = plot(timepoints, apply(normalised_mosquito_data[clusters$Cluster == 1, ], 2, mean) * 100, type = "l", lwd = 7, col = palette()[1], xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = c(0, 7)), mar=c(0, 0, 0, 0))
+text(-9, 96, "A", font = 2, cex = 2.5)
+
+plot(cluster_2_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, axes = FALSE, legend = TRUE)
+points(cluster_2_points$x, cluster_2_points$y, cex = 1, pch = 21, bg = palette()[2])
+plotInset(85, 8, 97.5, 17, expr = plot(timepoints, apply(normalised_mosquito_data[clusters$Cluster == 2, ], 2, mean) * 100, type = "l", lwd = 7, col = palette()[2], xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = c(0, 7)), mar=c(0, 0, 0, 0))
+text(-9, 96, "B", font = 2, cex = 2.5)
+
+plot(cluster_3_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, legend = FALSE)
+points(cluster_3_points$x, cluster_3_points$y, cex = 1, pch = 21, bg = palette()[3])
+plotInset(85, 8, 97.5, 17, expr = plot(timepoints, apply(normalised_mosquito_data[clusters$Cluster == 3, ], 2, mean) * 100, type = "l", lwd = 7, col = palette()[3], xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = c(0, 7)), mar=c(0, 0, 0, 0))
+text(-9, 96, "C", font = 2, cex = 2.5)
+
+plot(cluster_4_raster, xlim = c(65, 100), ylim = c(6, 37), las = 1, yaxt = "n", legend = FALSE)
+points(cluster_4_points$x, cluster_4_points$y, cex = 1, pch = 21, bg = palette()[4])
+plotInset(85, 8, 97.5, 17, expr = plot(timepoints, apply(normalised_mosquito_data[clusters$Cluster == 4, ], 2, mean) * 100, type = "l", lwd = 7, col = palette()[4], xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = c(0, 7)), mar=c(0, 0, 0, 0))
+text(-9, 96, "D", font = 2, cex = 2.5)
+
+mtext("Latitude (Degrees)", side = 1, outer = TRUE, cex = 1.25, font = 2, line = 1.2, col = "grey20")
+mtext("Longitude (Degrees)", side = 2, outer = TRUE, cex = 1.25, font = 2, line = 2.7, col = "grey20")
+
+dev.off()
+
 
